@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../state/reduxHooks";
 import { handleTag, SingleSelect } from "../OptionSelector";
 import { raiseNotification } from "../../state/notificationReducer";
 import { submitExercises } from "../../async/submitExercises";
-import { useGetExercisesQuery } from "../../state/services/training";
+import { useGetExercisesQuery } from "../../state/services/serverAPI";
 
 const AddExerciseForm = ({ id }: { id: string }) => {
   const [name, setName] = useState("");
@@ -16,7 +16,7 @@ const AddExerciseForm = ({ id }: { id: string }) => {
   const [reps, setReps] = useState(["", ""]);
   const [comment, setComment] = useState("");
   const [weight, setWeight] = useState(["", ""]);
-  const { data: exercises, isLoading } = useGetExercisesQuery("exercises");
+  const { data: exercises, isLoading } = useGetExercisesQuery();
 
   const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();

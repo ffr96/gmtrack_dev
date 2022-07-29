@@ -4,14 +4,14 @@ import { getLocalUser } from "../utils/functionUtils";
 import userReducer from "./userReducer";
 import trainingReducer from "./trainingReducer";
 import notificationReducer from "./notificationReducer";
-import { exercises } from "./services/training";
+import { serverAPI } from "./services/serverAPI";
 
 const store = configureStore({
   preloadedState: {
     user: getLocalUser(),
   },
   reducer: {
-    [exercises.reducerPath]: exercises.reducer,
+    [serverAPI.reducerPath]: serverAPI.reducer,
     user: userReducer,
     training: trainingReducer,
     notification: notificationReducer,

@@ -1,32 +1,60 @@
+import { Measures } from '../schemas/weight';
 import { parseString } from './parsers';
 
 interface userProps {
-  name: unknown,
-  username: unknown, 
-  password?: unknown,
+  name: unknown;
+  username: unknown;
+  password?: unknown;
 }
 
 interface userRes {
-  name: string,
-  username: string,
-  password?: string,
+  name: string;
+  username: string;
+  password?: string;
 }
 
 interface loginProps extends userProps {
-  passwordHash: unknown,
-  id: unknown
+  passwordHash: unknown;
+  id: unknown;
 }
 
 interface loginRes extends userRes {
-  passwordHash: string,
-  id: string
+  passwordHash: string;
+  id: string;
 }
 
-export const parseUser = (props:userProps) : userRes => {
+export const parseMeasures = (measures: unknown): Measures => {
+  const measuresCheck = measures as Measures;
+  const toReturn: Measures = {};
+  if (
+    measuresCheck.arms &&
+    (typeof measuresCheck.arms === 'number' ||
+      typeof measuresCheck.arms === 'string')
+  )
+    toReturn.arms = Number(measuresCheck.arms);
+
+  if (
+    measuresCheck.calves &&
+    (typeof measuresCheck.calves === 'number' ||
+      typeof measuresCheck.calves === 'string')
+  )
+    toReturn.calves = Number(measuresCheck.calves);
+
+  if (
+    measuresCheck.chest &&
+    (typeof measuresCheck.chest === 'number' ||
+      typeof measuresCheck.chest === 'string')
+  )
+    toReturn.chest = Number(measuresCheck.calves);
+
+  return toReturn;
+};
+
+export const parseUser = (props: userProps): userRes => {
   if (props) {
-    const name:string = parseString(props.name);
-    const username:string = parseString(props.username);
-    const password:string = parseString(props.password);
+    const name: string = parseString(props.name);
+    const username: string = parseString(props.username);
+    const password: string = parseString(props.password);
 
     return {
       name: name,
@@ -38,18 +66,18 @@ export const parseUser = (props:userProps) : userRes => {
   }
 };
 
-export const parseLogin = (props:loginProps) : loginRes => {
+export const parseLogin = (props: loginProps): loginRes => {
   if (props) {
-    const name:string = parseString(props.name);
-    const username:string = parseString(props.username);
-    const id:string = parseString(props.id);
-    const passwordHash:string = parseString(props.passwordHash);
+    const name: string = parseString(props.name);
+    const username: string = parseString(props.username);
+    const id: string = parseString(props.id);
+    const passwordHash: string = parseString(props.passwordHash);
 
     return {
       name: name,
       username: username,
       id: id,
-      passwordHash: passwordHash
+      passwordHash: passwordHash,
     };
   } else {
     throw new Error('No info provided on login parse');

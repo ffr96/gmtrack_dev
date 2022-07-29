@@ -9,6 +9,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { UserCommandBar } from "./components/UserNavBar";
 
 import LogsPage from "./routes/LogsPage";
+import WeightPage from "./routes/Weight";
 import NotFound from "./routes/NotFound";
 import UserInfo from "./routes/UserInfo";
 import LoginPage from "./routes/Login";
@@ -42,9 +43,9 @@ export const App = () => {
           <UserCommandBar />
           <Routes location={state?.backgroundLocation || location}>
             <Route path="/" element={<UserInfo />}>
-              {" "}
               <Route path="logs" element={<LogsPage />} />
             </Route>
+            <Route path="weight-progress" element={<WeightPage />} />
             <Route path="logs/:id" element={<LogById />} />
             <Route path="/*" element={<NotFound />} />
           </Routes>

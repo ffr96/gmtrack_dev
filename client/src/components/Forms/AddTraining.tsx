@@ -12,6 +12,7 @@ import { getDate } from "../../utils/functionUtils";
 
 const AddTrainingForm = () => {
   const [name, setName] = useState("");
+  const [comments, setComment] = useState("");
   const [tags, setTags] = useState<string[]>([]);
   const date = getDate();
 
@@ -22,6 +23,7 @@ const AddTrainingForm = () => {
     e.preventDefault();
     const trainingToSend = {
       date: date,
+      comments: comments,
       exercises: [],
       name: name,
       tags: tags,
@@ -39,17 +41,21 @@ const AddTrainingForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <div className="flex flex-col">
-        <div>
-          <Input
-            name="Name"
-            placeholder="Name this training"
-            value={name}
-            onChange={({ target }) => setName(target.value)}
-          />
-        </div>
-        <div>
-          <Input name="Date" disabled={true} value={date} />
-        </div>
+        <Input
+          name="Name"
+          placeholder="Name this training"
+          value={name}
+          onChange={({ target }) => setName(target.value)}
+        />
+
+        <Input name="Date" disabled={true} value={date} />
+        <Input
+          name="Comment"
+          placeholder="Comments about this day"
+          value={comments}
+          onChange={({ target }) => setComment(target.value)}
+        />
+
         <MultiSelect
           name="training log select"
           options={muscleGroup}

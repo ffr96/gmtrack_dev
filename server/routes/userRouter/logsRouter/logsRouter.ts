@@ -43,7 +43,8 @@ router.post(
         const name = req.body.name
           ? parseString(req.body.name)
           : 'Unnamed training';
-        if (!req.body.tags || !req.body.date) return next('invalid');
+        if (!req.body.tags || !req.body.date)
+          return next({ message: 'invalid' });
 
         const log = new Training({
           user: req.params.userID,

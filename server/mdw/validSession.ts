@@ -1,13 +1,14 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
+import { ExpressRequest } from '../types/express';
 
 export const validSession = (
-  req: Request,
-  res: Response,
+  req: ExpressRequest,
+  _res: Response,
   next: NextFunction
 ) => {
   if (req.user) {
     return next();
   } else {
-    next('unauthorized');
+    next({ message: 'unauthorized' });
   }
 };

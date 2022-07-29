@@ -4,7 +4,6 @@ import bcrypt from 'bcrypt';
 import logsRouter from './logsRouter/logsRouter';
 import weightRouter from './weightRouter/weightRouter';
 
-import { parseUser } from '../../utils/parseRequests';
 import { parseString } from '../../utils/parsers';
 import { validSession } from '../../mdw/validSession';
 
@@ -33,35 +32,34 @@ router.get('/:id', (req, res) => {
  * Creates a new user
  */
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res, next) => {
   try {
-    const userToAdd = parseUser({
-      username: parseString(req.body.username),
-      name: parseString(req.body.name),
-      password: parseString(req.body.password),
+    const passwordHash = await bcrypt.hash(parseString(req.body.password), 10);
+    const user = new User({
+      name: req.body.name as string,
+      username: req.body.username as string,
+      passwordHash: passwordHash,
     });
-
-    const hashAndSave = async () => {
-      const passwordHash = await bcrypt.hash(
-        parseString(req.body.password),
-        10
-      );
-      const user = new User({
-        name: userToAdd.name,
-        username: userToAdd.username,
-        passwordHash: passwordHash,
-      });
-      const userSaved = await user.save();
-      res.status(201).json(userSaved);
-    };
-    void hashAndSave();
+    const userSaved = await user.save();
+    res.status(201).json(userSaved);
   } catch (e) {
-    res.status(400).end();
+    if (e.code === 11000)
+      return res.status(400).json({ message: 'Username already in use' });
+    return next(e);
   }
 });
 
-router.use(validSession); // make sure every request from the routes below
-// contain a valid token
+router.delete('/:id', async (req, res) => {
+  const user = await User.findByIdAndDelete(req.params.id);
+  console.log(user);
+  res.sendStatus(200);
+});
+
+router.use(validSession);
+/**
+ *  Makes sure every request from the routes below
+ *  contain a valid token
+ * */
 router.use('/:userID/logs', logsRouter);
 router.use('/:userID/weight', weightRouter);
 

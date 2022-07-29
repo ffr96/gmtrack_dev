@@ -5,6 +5,22 @@ export interface User {
   token: string;
 }
 
+export interface Measures {
+  calves?: number;
+  arms?: number;
+  chest?: number;
+  legs?: number;
+  waist?: number;
+  neck?: number;
+  hips?: number;
+}
+
+export type Weight = {
+  weight: number;
+  date: Date;
+  measures?: Measures;
+};
+
 export interface Exercises {
   name: string;
   reps: number[];

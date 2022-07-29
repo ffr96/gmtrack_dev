@@ -1,12 +1,23 @@
 import { Request, Response, NextFunction } from 'express';
+import { Error } from 'mongoose';
 
 export const errorhnd = (
-  err: string,
+  err: Error,
   _req: Request,
   res: Response,
   _next: NextFunction
 ) => {
-  if (err === 'unauthorized') return res.sendStatus(401);
-  if (err === 'invalid') return res.sendStatus(400);
-  return res.sendStatus(500);
+  if (err instanceof Error.ValidationError) {
+    return res.status(400).json({ message: 'Missing or invalid data' });
+  }
+
+  if (err.message === 'unauthorized') {
+    return res.status(401).json({
+      message: 'Unauthorized',
+    });
+  }
+
+  return res.status(500).json({
+    message: 'Unexpected server error',
+  });
 };

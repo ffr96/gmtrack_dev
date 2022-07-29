@@ -3,7 +3,10 @@ import { IUser } from '../types/User';
 import { parseString } from '../utils/parsers';
 
 const userSchema = new mongoose.Schema({
-  name: String,
+  name: {
+    type: String,
+    required: true,
+  },
   username: {
     type: String,
     required: true,
@@ -13,11 +16,13 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  logs: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'logs',
-    default: [],
-  },
+  weight: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Weight',
+      default: [],
+    },
+  ],
 });
 
 userSchema.set('toJSON', {

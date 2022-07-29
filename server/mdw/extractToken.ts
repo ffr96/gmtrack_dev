@@ -1,7 +1,8 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import User from '../schemas/users';
 import config from '../config/config';
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
+import { ExpressRequest } from '../types/express';
 
 const isJwt = (token: JwtPayload | string): token is JwtPayload => {
   if (typeof token !== 'string') {
@@ -11,7 +12,7 @@ const isJwt = (token: JwtPayload | string): token is JwtPayload => {
 };
 
 export const tokenExtractor = async (
-  request: Request,
+  request: ExpressRequest,
   _response: Response,
   next: NextFunction
 ) => {

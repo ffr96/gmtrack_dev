@@ -33,7 +33,6 @@ app.use(express.json());
 app.use(logger);
 
 app.use('/login', loginRouter);
-
 app.use('/exercises', exercisesRouter);
 app.use('/users', userRouter);
 app.use(errorhnd);

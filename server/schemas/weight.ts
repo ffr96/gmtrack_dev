@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { parseString } from '../utils/parsers';
 
-interface Measures {
+export interface Measures {
   calves?: number;
   arms?: number;
   chest?: number;

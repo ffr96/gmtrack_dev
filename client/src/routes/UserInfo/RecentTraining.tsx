@@ -4,7 +4,7 @@ import { selectRecentLogs } from "../../state/trainingReducer";
 import { getDate } from "../../utils/functionUtils";
 
 /**
- * Component to show the last X logs of a given user (defaults to 5)
+ * Shows the last X logs of a given user (defaults to 5)
  * Once a Selector Function is written, that function will be used to retrieve the
  * logs, instead of writing the state logic directly on the selector.
  */
@@ -17,7 +17,7 @@ const RecentTraining = ({ logsToRender = 5 }: { logsToRender?: number }) => {
 
   return (
     <div>
-      {tlogs &&
+      {(tlogs.length > 0 &&
         tlogs.map((tl) => {
           return (
             <div className="mb-6 w-fit hover:text-slate-600" key={tl.id}>
@@ -38,7 +38,7 @@ const RecentTraining = ({ logsToRender = 5 }: { logsToRender?: number }) => {
               </Link>
             </div>
           );
-        })}
+        })) || <div>Nothing to see here... 😒. Add a new training!</div>}
     </div>
   );
 };
