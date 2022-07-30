@@ -18,7 +18,7 @@ export const serverAPI = createApi({
     baseUrl: `${baseUrl}/`,
   }),
   endpoints: (builder) => ({
-    getExercises: builder.query<Exercises[], string>({
+    getExercises: builder.query<Exercises[], void>({
       query: () => "exercises",
     }),
     getWeight: builder.query<Weight[], string | undefined>({

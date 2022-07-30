@@ -64,6 +64,7 @@ const weightSchema = new mongoose.Schema({
 weightSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = parseString(returnedObject._id);
+    delete returnedObject.measures._id;
     delete returnedObject._id;
     delete returnedObject.__v;
   },

@@ -5,7 +5,7 @@ export interface User {
   token: string;
 }
 
-export interface Measures {
+export type Measures = {
   calves?: number;
   arms?: number;
   chest?: number;
@@ -13,11 +13,11 @@ export interface Measures {
   waist?: number;
   neck?: number;
   hips?: number;
-}
+};
 
 export type Weight = {
   weight: number;
-  date: Date;
+  date: string;
   measures?: Measures;
 };
 

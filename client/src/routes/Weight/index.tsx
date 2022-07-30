@@ -1,14 +1,19 @@
 import Main from "../../components/Main";
-import { useAppSelector } from "../../state/reduxHooks";
-import { useGetWeightQuery } from "../../state/services/serverAPI";
+import WeightInformation from "./WeightInformation";
 
 const WeightPage = () => {
-  const user = useAppSelector((state) => state.user);
-  const { data: weight, isLoading } = useGetWeightQuery(user?.id);
-
-  if (isLoading) return <div>loading</div>;
-  console.log(weight);
-  return <Main>Weight page</Main>;
+  return (
+    <Main>
+      <div className="flex flex-row justify-center">
+        <h1 className="p-6 text-3xl">
+          Weight <b>Logs</b>
+        </h1>
+      </div>
+      <div className="mb-2 bg-slate-200 p-6 shadow-md">
+        <WeightInformation weightsToRender={0} />
+      </div>
+    </Main>
+  );
 };
 
 export default WeightPage;

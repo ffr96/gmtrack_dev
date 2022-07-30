@@ -50,7 +50,7 @@ export const {
 export const selectRecentLogs = (state: RootState, logsToRetrieve: number) => {
   if (state.training) {
     return state.training.slice(-logsToRetrieve).reverse();
-  } else return [];
+  } else return null;
 };
 
 export default trainingReducer.reducer;

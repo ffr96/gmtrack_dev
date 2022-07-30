@@ -16,6 +16,7 @@ import LoginPage from "./routes/Login";
 import Notification from "./components/Notification";
 import LogById from "./routes/LogsPage/LogById";
 import ModalPage from "./routes/ModalPage";
+import Footer from "./components/Footer";
 
 export const App = () => {
   const dispatch = useAppDispatch();
@@ -56,6 +57,7 @@ export const App = () => {
           )}
         </div>
       )) || <LoginPage />}
+      <Footer />
     </div>
   );
 };

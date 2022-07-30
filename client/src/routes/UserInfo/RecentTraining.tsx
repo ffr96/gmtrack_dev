@@ -5,8 +5,6 @@ import { getDate } from "../../utils/functionUtils";
 
 /**
  * Shows the last X logs of a given user (defaults to 5)
- * Once a Selector Function is written, that function will be used to retrieve the
- * logs, instead of writing the state logic directly on the selector.
  */
 
 const RecentTraining = ({ logsToRender = 5 }: { logsToRender?: number }) => {
@@ -17,7 +15,7 @@ const RecentTraining = ({ logsToRender = 5 }: { logsToRender?: number }) => {
 
   return (
     <div>
-      {(tlogs.length > 0 &&
+      {(tlogs &&
         tlogs.map((tl) => {
           return (
             <div className="mb-6 w-fit hover:text-slate-600" key={tl.id}>
