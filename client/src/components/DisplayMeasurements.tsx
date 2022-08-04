@@ -1,4 +1,4 @@
-import { Measures } from "../../types";
+import { Measures } from "../types";
 
 /**
  * Displays measurement if present

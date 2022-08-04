@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import { InteractButton } from "../../components/InteractButton";
 import Main from "../../components/Main";
 import TrainingModal from "../../modals/TrainingModal";
+import WeightModal from "../../modals/WeightModal";
 import { useModal } from "../../modals/useModal";
 
 /**
@@ -21,7 +22,7 @@ const UserInfo = () => {
   return (
     <Main>
       <TrainingModal isModalOpen={trainingModal} onClose={closeTrainingModal} />
-      <TrainingModal isModalOpen={weightModal} onClose={closeWeightModal} />
+      <WeightModal isModalOpen={weightModal} onClose={closeWeightModal} />
       <div className="flex flex-row justify-center">
         <h1 className="p-6 text-3xl">
           Welcome <b>{user}</b>

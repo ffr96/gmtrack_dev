@@ -1,5 +1,5 @@
 import { getDate } from "../../utils/functionUtils";
-import DisplayMeasurements from "./DisplayMeasurements";
+import DisplayMeasurements from "../../components/DisplayMeasurements";
 import { useAppSelector } from "../../state/reduxHooks";
 import { useGetWeightQuery } from "../../state/services/serverAPI";
 
@@ -19,7 +19,7 @@ const WeightInformation = ({
   if (!weight || isLoading) return <div>loading..</div>;
 
   return (
-    <div>
+    <div className="w-fit">
       {weight.slice(-weightsToRender).map((wht) => {
         return (
           <div key={wht.date.toString()} className="mb-6">

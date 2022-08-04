@@ -24,7 +24,7 @@ export const getDate = (str?: string) => {
 };
 
 /** Checks if there's a message that can be retrieved from an error.
- * @param Error
+ * @param e error to check
  * @returns Boolean
  */
 
