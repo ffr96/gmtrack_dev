@@ -4,7 +4,9 @@ import { brands, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 export const icons = {
   book: <FontAwesomeIcon icon={solid("book")} />,
   penToSquare: <FontAwesomeIcon icon={solid("pen-to-square")} />,
-  dumbbell: <FontAwesomeIcon icon={solid("dumbbell")} bounce />,
+  dumbbell: (bounce?: boolean) => (
+    <FontAwesomeIcon icon={solid("dumbbell")} bounce={bounce} />
+  ),
   weightScale: <FontAwesomeIcon icon={solid("weight-scale")} />,
   arrowRight: <FontAwesomeIcon icon={solid("arrow-right-from-bracket")} />,
   close: <FontAwesomeIcon icon={solid("circle-xmark")} />,

@@ -30,7 +30,7 @@ export const UserCommandBar = ({ changeTheme }: AppType) => {
       key: "strengthprogress",
       to: "strength-progress",
       text: "Strength Progress",
-      icon: icons.dumbbell,
+      icon: icons.dumbbell(false),
     },
     {
       key: "weightprogress",
