@@ -5,7 +5,7 @@ import Input from "../../components/Input/Input";
 import Button from "../../components/Button";
 import { useInput } from "../../components/Input/useInput";
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const [username, setUsername] = useInput();
   const [password, setPassword] = useInput();
   const dispatch = useAppDispatch();
@@ -17,7 +17,7 @@ const LoginForm = () => {
 
   return (
     <div>
-      <h3 className="mb-6 text-center text-2xl">Login</h3>
+      <h3 className="mb-6 text-center text-2xl">Register</h3>
       <form onSubmit={handleSubmit} className="flex flex-col items-end">
         <Input
           name="Username"
@@ -42,4 +42,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
