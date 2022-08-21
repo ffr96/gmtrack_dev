@@ -1,18 +1,19 @@
 import { useAppDispatch } from "../../state/reduxHooks";
-import { submitLogin } from "../../async/submitLogin";
 
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button";
 import { useInput } from "../../components/Input/useInput";
+import { submitRegister } from "../../async/submitRegister";
 
 const RegisterForm = () => {
   const [username, setUsername] = useInput();
   const [password, setPassword] = useInput();
+  const [email, setEmail] = useInput();
   const dispatch = useAppDispatch();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    void submitLogin(username, password, dispatch);
+    void submitRegister(username, password, email, dispatch);
   };
 
   return (
@@ -33,6 +34,14 @@ const RegisterForm = () => {
           required
           onChange={({ target }) => setPassword(target.value)}
           type="password"
+        />
+        <Input
+          name="Email"
+          value={email}
+          placeholder="Email"
+          required
+          onChange={({ target }) => setEmail(target.value)}
+          type="email"
         />
         <Button type="submit" action="SEND">
           Send

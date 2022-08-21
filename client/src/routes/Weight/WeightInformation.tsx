@@ -10,8 +10,10 @@ import { useGetWeightQuery } from "../../state/services/serverAPI";
 
 const WeightInformation = ({
   weightsToRender = 5,
+  displayMeasures = true,
 }: {
   weightsToRender?: number;
+  displayMeasures?: boolean;
 }) => {
   const user = useAppSelector((state) => state.user);
   const { data: weight, isLoading } = useGetWeightQuery(user?.id);
@@ -22,14 +24,17 @@ const WeightInformation = ({
     <div className="w-fit">
       {weight.slice(-weightsToRender).map((wht) => {
         return (
-          <div key={wht.date.toString()} className="mb-6">
+          <div
+            key={wht.date.toString()}
+            className="mb-6 rounded-lg bg-slate-400/70 p-2"
+          >
             <div>
               <b>Reported weight</b> on {getDate(wht.date)}:{" "}
               <span className="font-bold text-violet-800">
                 {wht.weight}kg/lb
               </span>
             </div>
-            {wht.measures && (
+            {wht.measures && displayMeasures && (
               <div>
                 <b>Measurements</b>:
                 <DisplayMeasurements measures={wht.measures} />

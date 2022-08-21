@@ -9,7 +9,6 @@ import { parseString } from '../utils/parsers';
 const router = express.Router();
 
 interface UserReceived {
-  name: string;
   username: string;
   passwordHash: string;
   id: string;
@@ -23,7 +22,6 @@ router.post('/', (req, res) => {
     let usertoReturn;
     if (user) {
       const parsedUser: UserReceived = parseLogin({
-        name: user.name,
         username: user.username,
         passwordHash: user.passwordHash,
         id: user.id,
@@ -47,7 +45,6 @@ router.post('/', (req, res) => {
       usertoReturn = {
         token: token,
         username: parsedUser.username,
-        name: parsedUser.name,
         id: parsedUser.id,
       };
     } else {
@@ -61,7 +58,7 @@ router.post('/', (req, res) => {
       return res.send(user);
     })
     .catch((error) => {
-      return res.json({ message: error.message as string });
+      return res.status(400).json({ message: error.message as string });
     });
 });
 

@@ -51,6 +51,10 @@ export const isValidError = (e: unknown): e is ErrorResponse => {
 //  }
 //};
 
+/**
+ * @returns user stored on localStorage
+ */
+
 export const getLocalUser = (): User | null => {
   const localUser = localStorage.getItem("user-token");
   if (localUser) {
@@ -58,6 +62,26 @@ export const getLocalUser = (): User | null => {
   } else {
     return null;
   }
+};
+
+/**
+ * Capitalizes first letter
+ */
+
+export const capitalizeFirstLetter = (str: string) => {
+  if (str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+};
+
+/**
+ * Checks media width
+ * @returns true if media > 500px
+ */
+
+export const getMediaWidth = () => {
+  const width = document.documentElement.clientWidth;
+  return width > 600;
 };
 
 export default { stringToInt };

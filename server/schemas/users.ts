@@ -3,14 +3,14 @@ import { IUser } from '../types/User';
 import { parseString } from '../utils/parsers';
 
 const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
   username: {
     type: String,
     required: true,
     unique: true,
+  },
+  email: {
+    type: String,
+    required: true,
   },
   passwordHash: {
     type: String,

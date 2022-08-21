@@ -33,6 +33,7 @@ export const tokenExtractor = async (
     }
   } catch (e) {
     console.log(`ERROR: Can't extract token`);
+    return next(e);
   }
   next();
 };

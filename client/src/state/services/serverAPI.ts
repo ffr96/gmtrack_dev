@@ -8,7 +8,6 @@ export const serverAPI = createApi({
   baseQuery: fetchBaseQuery({
     prepareHeaders: (headers, { getState }) => {
       const state = getState() as RootState;
-      console.log(state.user?.token);
       if (state.user) {
         headers.set("authorization", `bearer ${state.user.token}`);
       }

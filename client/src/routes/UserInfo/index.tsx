@@ -18,7 +18,7 @@ import RecentTraining from "./RecentTraining";
 const UserInfo = () => {
   const [trainingModal, openTrainingModal, closeTrainingModal] = useModal();
   const [weightModal, openWeightModal, closeWeightModal] = useModal();
-  const user = useAppSelector((state) => state.user?.name);
+  const user = useAppSelector((state) => state.user?.username);
   return (
     <Main>
       <TrainingModal isModalOpen={trainingModal} onClose={closeTrainingModal} />
@@ -37,7 +37,7 @@ const UserInfo = () => {
           <div>
             {" "}
             <h1 className="pb-5 text-2xl">Recent weight entries:</h1>
-            <WeightInformation />
+            <WeightInformation displayMeasures={false} />
           </div>
         </div>
       </div>

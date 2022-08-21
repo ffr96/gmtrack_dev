@@ -1,20 +1,24 @@
 import React, { useState } from "react";
 import Button from "../Button";
 import Input from "../Input/Input";
+import AddMeasures from "./AddMeasures";
 
 import { useAppDispatch, useAppSelector } from "../../state/reduxHooks";
 import { raiseNotification } from "../../state/notificationReducer";
 import { getDate } from "../../utils/functionUtils";
 import { useSubmitWeightMutation } from "../../state/services/serverAPI";
+import { Measures } from "../../types";
 
 const AddWeightForm = () => {
   const [comments, setComment] = useState("");
   const [weight, setWeight] = useState("");
-  const date = getDate();
+  const [showMeasurements, setShowMeasurements] = useState(false);
+  const [measures, setMeasures] = useState<Measures | undefined>();
+  const [submitWeight, weightState] = useSubmitWeightMutation();
 
   const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
-  const [submitWeight, weightState] = useSubmitWeightMutation();
+  const date = getDate();
 
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
@@ -22,10 +26,12 @@ const AddWeightForm = () => {
       date: date,
       weight: Number(weight),
       comments: comments,
+      measures: measures,
     };
 
     if (user) {
       void submitWeight({ id: user.id, body: trainingToSend });
+      console.log(weightState.isSuccess);
     } else {
       dispatch(
         raiseNotification({ type: "WARNING", message: "Unexpected error" })
@@ -43,7 +49,6 @@ const AddWeightForm = () => {
           value={comments}
           onChange={({ target }) => setComment(target.value)}
         />
-
         <Input
           name="Weight"
           type="number"
@@ -52,6 +57,19 @@ const AddWeightForm = () => {
           value={weight}
           onChange={({ target }) => setWeight(target.value)}
         />
+        <span>
+          Add measurements?{" "}
+          <input
+            type="checkbox"
+            onClick={() => setShowMeasurements(!showMeasurements)}
+          />
+        </span>
+
+        {showMeasurements && (
+          <div className="animate-fadeIn">
+            <AddMeasures measures={measures} setMeasures={setMeasures} />
+          </div>
+        )}
 
         <div className="text-center">
           <Button type="submit" action="SEND">

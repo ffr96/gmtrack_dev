@@ -33,6 +33,7 @@ router.post('/', async (req: Request<{ userID: string }>, res, next) => {
       await user.save();
       return res.json(req.body);
     } catch (e) {
+      console.log(e);
       return next(e);
     }
   } else {

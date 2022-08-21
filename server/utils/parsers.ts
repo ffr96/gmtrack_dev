@@ -14,7 +14,7 @@ const isNumb = (numb: unknown): numb is number => {
 
 export const parseString = (str: unknown): string => {
   if (!str || !isString(str)) {
-    throw new Error('Error parsing; not a string');
+    throw new Error(`Error parsing; not a string: ${str}`);
   }
 
   return str;

@@ -12,13 +12,9 @@ export const errorhnd = (
   }
 
   if (err.message === 'unauthorized') {
-    return res.status(401).json({
-      message: 'Unauthorized',
-    });
+    return res.sendStatus(401);
   }
 
   console.log(err);
-  return res.status(500).json({
-    message: 'Unexpected server error',
-  });
+  return res.sendStatus(500);
 };

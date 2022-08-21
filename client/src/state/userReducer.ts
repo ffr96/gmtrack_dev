@@ -9,7 +9,9 @@ const userReducer = createSlice({
   initialState: null as InitialUser,
   reducers: {
     setUser: (state, action: PayloadAction<User>) => {
-      return (state = action.payload);
+      if (action.payload.id && action.payload.token && action.payload.username)
+        return (state = action.payload);
+      else return null;
     },
     removeUser: (state) => {
       state = null;

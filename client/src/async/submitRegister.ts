@@ -1,28 +1,27 @@
 import { User } from "../types";
 import { baseUrl, defaultErrorMessage } from "../utils/constants";
 import { raiseNotification } from "../state/notificationReducer";
-import { setUser } from "../state/userReducer";
 import { AppDispatch } from "../state/store";
 import axios from "axios";
 import { isValidError } from "../utils/functionUtils";
 
-const submitLogin = async (
+const submitRegister = async (
   username: string,
   password: string,
+  email: string,
   dispatch: AppDispatch
 ) => {
   try {
-    const { data: user, status } = await axios.post<User>(`${baseUrl}/login`, {
+    const { status } = await axios.post<User>(`${baseUrl}/users`, {
       username: username,
       password: password,
+      email: email,
     });
     if (status === 200) {
-      localStorage.setItem("user-token", JSON.stringify(user));
-      dispatch(setUser(user));
       dispatch(
         raiseNotification({
           type: "SUCCESS",
-          message: "Successfuly logged in",
+          message: "Registered successfuly!",
         })
       );
     }
@@ -42,4 +41,4 @@ const submitLogin = async (
   }
 };
 
-export { submitLogin };
+export { submitRegister };

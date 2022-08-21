@@ -1,10 +1,11 @@
 type InputProps = {
-  value: string;
+  value: string | number | undefined;
   placeholder?: string;
-  name: string;
+  name?: string;
   disabled?: boolean;
   onChange?: ({ target }: { target: HTMLInputElement }) => void;
   required?: boolean;
+  min?: number;
   type?: string;
 };
 
@@ -14,6 +15,7 @@ const Input = ({
   name,
   required,
   type,
+  min,
   disabled,
   onChange,
 }: InputProps) => {
@@ -28,6 +30,7 @@ const Input = ({
         disabled={disabled}
         placeholder={placeholder}
         name={name}
+        min={min}
         onChange={onChange}
         required={required}
         type={type}

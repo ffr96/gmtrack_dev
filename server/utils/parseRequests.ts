@@ -2,13 +2,11 @@ import { Measures } from '../schemas/weight';
 import { parseString } from './parsers';
 
 interface userProps {
-  name: unknown;
   username: unknown;
   password?: unknown;
 }
 
 interface userRes {
-  name: string;
   username: string;
   password?: string;
 }
@@ -52,12 +50,10 @@ export const parseMeasures = (measures: unknown): Measures => {
 
 export const parseUser = (props: userProps): userRes => {
   if (props) {
-    const name: string = parseString(props.name);
     const username: string = parseString(props.username);
     const password: string = parseString(props.password);
 
     return {
-      name: name,
       username: username,
       password: password,
     };
@@ -68,13 +64,11 @@ export const parseUser = (props: userProps): userRes => {
 
 export const parseLogin = (props: loginProps): loginRes => {
   if (props) {
-    const name: string = parseString(props.name);
     const username: string = parseString(props.username);
     const id: string = parseString(props.id);
     const passwordHash: string = parseString(props.passwordHash);
 
     return {
-      name: name,
       username: username,
       id: id,
       passwordHash: passwordHash,

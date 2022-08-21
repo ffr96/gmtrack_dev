@@ -1,4 +1,5 @@
 import { Measures } from "../types";
+import { capitalizeFirstLetter } from "../utils/functionUtils";
 
 /**
  * Displays measurement if present
@@ -15,13 +16,20 @@ const DisplayMeasurements = ({ measures }: { measures: Measures }) => {
   }
 
   return (
-    <div>
+    <div className="pt-5">
       {measureDisplay &&
-        measureDisplay.map((display) => {
+        measureDisplay.map((display, i) => {
           return (
-            <div key={display.type}>
-              {display.type}: {display.measure}
-            </div>
+            <table key={display.type} className="w-full">
+              <tbody>
+                <tr className={`${i % 2 ? "bg-slate-300" : ""}`}>
+                  <td className="text-left">
+                    {capitalizeFirstLetter(display.type)}:
+                  </td>
+                  <td className="text-right">{display.measure}cm/inch</td>
+                </tr>
+              </tbody>
+            </table>
           );
         })}
     </div>
