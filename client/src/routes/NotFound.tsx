@@ -4,7 +4,7 @@ import Main from "../components/Main";
 const NotFound = () => {
   return (
     <Main>
-      <div className="flex h-full flex-col content-center justify-center text-center">
+      <div className="flex h-screen flex-col justify-center text-center ">
         <div>404 - Not Found</div>
         <Link to="/">Go back</Link>
       </div>

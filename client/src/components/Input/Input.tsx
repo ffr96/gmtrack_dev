@@ -1,39 +1,14 @@
-type InputProps = {
-  value: string | number | undefined;
-  placeholder?: string;
-  name?: string;
-  disabled?: boolean;
-  onChange?: ({ target }: { target: HTMLInputElement }) => void;
-  required?: boolean;
-  min?: number;
-  type?: string;
-};
+import { ComponentPropsWithoutRef } from "react";
 
-const Input = ({
-  value,
-  placeholder,
-  name,
-  required,
-  type,
-  min,
-  disabled,
-  onChange,
-}: InputProps) => {
+const Input = ({ ...props }: ComponentPropsWithoutRef<"input">) => {
   return (
     <div className="flex flex-col items-center justify-between md:flex-row">
-      <span className="pr-2">{name}:</span>
+      <span className="pr-2">{props.name}:</span>
       <input
         className={`m-2 h-4 border-b-4 ${
-          disabled ? "border-teal-200" : "border-teal-400"
+          props.disabled ? "border-teal-200" : "border-teal-400"
         } bg-slate-50 p-4 transition-colors duration-500 focus:border-violet-400 focus:outline-none`}
-        value={value}
-        disabled={disabled}
-        placeholder={placeholder}
-        name={name}
-        min={min}
-        onChange={onChange}
-        required={required}
-        type={type}
+        {...props}
       />
     </div>
   );
