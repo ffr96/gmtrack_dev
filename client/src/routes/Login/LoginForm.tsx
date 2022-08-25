@@ -1,9 +1,9 @@
-import { useAppDispatch } from "../../state/reduxHooks";
-import { submitLogin } from "../../async/submitLogin";
+import { useAppDispatch } from "state/reduxHooks";
+import { submitLogin } from "async/submitLogin";
 
-import Input from "../../components/Input/Input";
-import Button from "../../components/Button";
-import { useInput } from "../../components/Input/useInput";
+import Input from "components/Input/Input";
+import Button from "components/Button";
+import { useInput } from "components/Input/useInput";
 
 const LoginForm = () => {
   const [username, setUsername] = useInput();

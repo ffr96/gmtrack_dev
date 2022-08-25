@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useModal } from "../modals/useModal";
-import ExerciseModal from "../modals/ExerciseModal";
+import { useModal } from "modals/useModal";
+import ExerciseModal from "modals/ExerciseModal";
 
 const ModalPage = () => {
   const { id } = useParams();

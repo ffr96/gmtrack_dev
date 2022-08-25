@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
-import { useAppSelector } from "../../state/reduxHooks";
-import { selectRecentLogs } from "../../state/trainingReducer";
-import { getDate } from "../../utils/functionUtils";
+import { useAppSelector } from "state/reduxHooks";
+import { selectRecentLogs } from "state/trainingReducer";
+import { getDate } from "utils/functionUtils";
 
 /**
  * Shows the last X logs of a given user (defaults to 5)

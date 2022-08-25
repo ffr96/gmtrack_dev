@@ -1,4 +1,4 @@
-import { User, ErrorResponse } from "../types";
+import { User, ErrorResponse } from "types";
 
 const stringToInt = (arr: string[]): number[] => {
   const arrNumber: number[] = [];

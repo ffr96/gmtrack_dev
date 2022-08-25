@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import Input from "../Input/Input";
 import Button from "../Button";
-
-import { Exercises } from "../../types";
-import utils from "../../utils/functionUtils";
-import { useAppDispatch, useAppSelector } from "../../state/reduxHooks";
 import { handleTag, SingleSelect } from "../OptionSelector";
-import { raiseNotification } from "../../state/notificationReducer";
-import { submitExercises } from "../../async/submitExercises";
-import { useGetExercisesQuery } from "../../state/services/serverAPI";
+
+import { Exercises } from "types";
+import utils from "utils/functionUtils";
+import { useAppDispatch, useAppSelector } from "state/reduxHooks";
+import { raiseNotification } from "state/notificationReducer";
+import { submitExercises } from "async/submitExercises";
+import { useGetExercisesQuery } from "state/services/serverAPI";
 
 const AddExerciseForm = ({ id }: { id: string }) => {
   const [name, setName] = useState("");

@@ -1,9 +1,10 @@
-import DataChart from "../../components/DataChart";
-import { useAppSelector } from "../../state/reduxHooks";
-import { useGetWeightQuery } from "../../state/services/serverAPI";
-import { Measures } from "../../types";
 import TooltipContent from "./WeightLineTooltip";
-import { getDate } from "../../utils/functionUtils";
+
+import DataChart from "components/DataChart";
+import { useAppSelector } from "state/reduxHooks";
+import { useGetWeightQuery } from "state/services/serverAPI";
+import { Measures } from "types";
+import { getDate } from "utils/functionUtils";
 
 const WeightGraph = () => {
   const user = useAppSelector((state) => state.user);

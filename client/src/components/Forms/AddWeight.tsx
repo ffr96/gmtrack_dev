@@ -3,11 +3,11 @@ import Button from "../Button";
 import Input from "../Input/Input";
 import AddMeasures from "./AddMeasures";
 
-import { useAppDispatch, useAppSelector } from "../../state/reduxHooks";
-import { raiseNotification } from "../../state/notificationReducer";
-import { getDate } from "../../utils/functionUtils";
-import { useSubmitWeightMutation } from "../../state/services/serverAPI";
-import { Measures } from "../../types";
+import { useAppDispatch, useAppSelector } from "state/reduxHooks";
+import { raiseNotification } from "state/notificationReducer";
+import { getDate } from "utils/functionUtils";
+import { useSubmitWeightMutation } from "state/services/serverAPI";
+import { Measures } from "types";
 
 const AddWeightForm = () => {
   const [comments, setComment] = useState("");

@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import Button from "../Button";
 import Input from "../Input/Input";
-import { submitTraining } from "../../async/submitTraining";
-
-import { useAppDispatch, useAppSelector } from "../../state/reduxHooks";
-import { raiseNotification } from "../../state/notificationReducer";
-import { muscleGroup } from "../../utils/trainingDB";
 import { MultiSelect } from "../OptionSelector";
 import { handleGroupTags } from "../OptionSelector";
-import { getDate } from "../../utils/functionUtils";
+
+import { submitTraining } from "async/submitTraining";
+import { useAppDispatch, useAppSelector } from "state/reduxHooks";
+import { raiseNotification } from "state/notificationReducer";
+import { muscleGroup } from "utils/trainingDB";
+import { getDate } from "utils/functionUtils";
 
 const AddTrainingForm = () => {
   const [name, setName] = useState("");

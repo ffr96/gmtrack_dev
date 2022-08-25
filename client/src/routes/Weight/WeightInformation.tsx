@@ -1,7 +1,7 @@
-import { getDate } from "../../utils/functionUtils";
-import DisplayMeasurements from "../../components/DisplayMeasurements";
-import { useAppSelector } from "../../state/reduxHooks";
-import { useGetWeightQuery } from "../../state/services/serverAPI";
+import { getDate } from "utils/functionUtils";
+import DisplayMeasurements from "components/DisplayMeasurements";
+import { useAppSelector } from "state/reduxHooks";
+import { useGetWeightQuery } from "state/services/serverAPI";
 
 /**
  * Displays the last X weight logs. Defaults to 5.

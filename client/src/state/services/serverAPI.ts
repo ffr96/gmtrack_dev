@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { baseUrl } from "../../utils/constants";
-import { Options as Exercises, Weight } from "../../types";
+import { baseUrl } from "utils/constants";
+import { Options as Exercises, Weight } from "types";
 import { RootState } from "../store";
 
 export const serverAPI = createApi({

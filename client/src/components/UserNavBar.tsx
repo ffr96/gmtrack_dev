@@ -2,9 +2,9 @@ import React from "react";
 import { icons } from "../utils/icons";
 
 import { Link } from "react-router-dom";
-import { raiseNotification } from "../state/notificationReducer";
-import { useAppDispatch } from "../state/reduxHooks";
-import { removeUser } from "../state/userReducer";
+import { raiseNotification } from "state/notificationReducer";
+import { useAppDispatch } from "state/reduxHooks";
+import { removeUser } from "state/userReducer";
 
 interface AppType {
   changeTheme?: () => void;

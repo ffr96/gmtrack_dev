@@ -1,10 +1,10 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { InteractButton } from "../../components/InteractButton";
-import Main from "../../components/Main";
-import TrainingModal from "../../modals/TrainingModal";
-import WeightModal from "../../modals/WeightModal";
-import { useModal } from "../../modals/useModal";
+import { InteractButton } from "components/InteractButton";
+import Main from "components/Main";
+import TrainingModal from "modals/TrainingModal";
+import WeightModal from "modals/WeightModal";
+import { useModal } from "modals/useModal";
 
 /**
  * Landing page after a user is successfuly logged in.

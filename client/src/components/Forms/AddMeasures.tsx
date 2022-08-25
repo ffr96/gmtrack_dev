@@ -1,5 +1,5 @@
 import React from "react";
-import { Measures } from "../../types";
+import { Measures } from "types";
 import Input from "../Input/Input";
 
 const AddMeasures = ({

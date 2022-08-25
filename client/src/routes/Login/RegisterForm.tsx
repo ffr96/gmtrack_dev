@@ -1,9 +1,9 @@
-import { useAppDispatch } from "../../state/reduxHooks";
+import { useAppDispatch } from "state/reduxHooks";
 
-import Input from "../../components/Input/Input";
-import Button from "../../components/Button";
-import { useInput } from "../../components/Input/useInput";
-import { submitRegister } from "../../async/submitRegister";
+import Input from "components/Input/Input";
+import Button from "components/Button";
+import { useInput } from "components/Input/useInput";
+import { submitRegister } from "async/submitRegister";
 
 const RegisterForm = () => {
   const [username, setUsername] = useInput();

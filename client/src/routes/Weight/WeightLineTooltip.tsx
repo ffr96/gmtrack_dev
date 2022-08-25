@@ -3,8 +3,8 @@ import {
   NameType,
 } from "recharts/types/component/DefaultTooltipContent";
 import { TooltipProps } from "recharts";
-import DisplayMeasurements from "../../components/DisplayMeasurements";
-import { Measures } from "../../types";
+import DisplayMeasurements from "components/DisplayMeasurements";
+import { Measures } from "types";
 
 /** Tooltip info to pass to DataChart component. It will display date, weight and, if present, measurement values.
  * TODO: type this correctly.

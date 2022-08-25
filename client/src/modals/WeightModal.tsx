@@ -1,6 +1,6 @@
 import React from "react";
-import AddWeightForm from "../components/Forms/AddWeight";
-import { Modal } from "../components/Modal";
+import AddWeightForm from "components/Forms/AddWeight";
+import { Modal } from "components/Modal";
 
 interface Props {
   isModalOpen: boolean;

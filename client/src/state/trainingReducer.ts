@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TrainingLog, Exercises } from "../types";
+import { TrainingLog, Exercises } from "types";
 import { RootState } from "./store";
 
 type InitialTrainingLog = TrainingLog[] | null;

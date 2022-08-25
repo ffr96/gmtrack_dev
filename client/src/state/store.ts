@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { getLocalUser } from "../utils/functionUtils";
+import { getLocalUser } from "utils/functionUtils";
 
 import userReducer from "./userReducer";
 import trainingReducer from "./trainingReducer";

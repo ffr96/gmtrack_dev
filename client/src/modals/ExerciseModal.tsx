@@ -1,13 +1,14 @@
 import React from "react";
-import AddExerciseForm from "../components/Forms/AddExercise";
-import { Modal } from "../components/Modal";
-import { DisplayRoutine } from "../components/DisplayRoutine";
-
-import Button from "../components/Button";
-import { useAppDispatch, useAppSelector } from "../state/reduxHooks";
 import { useNavigate } from "react-router-dom";
-import { deleteLog } from "../async/deleteLog";
-import { raiseNotification } from "../state/notificationReducer";
+import { useAppDispatch, useAppSelector } from "state/reduxHooks";
+
+import AddExerciseForm from "components/Forms/AddExercise";
+import { Modal } from "components/Modal";
+import { DisplayRoutine } from "components/DisplayRoutine";
+
+import Button from "components/Button";
+import { deleteLog } from "async/deleteLog";
+import { raiseNotification } from "state/notificationReducer";
 
 interface ExerciseModalProps {
   isModalOpen: boolean;

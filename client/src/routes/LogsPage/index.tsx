@@ -1,8 +1,8 @@
 import { useState } from "react";
-import AddTrainingModal from "../../modals/TrainingModal";
-import AddExcModal from "../../modals/ExerciseModal";
-import { useAppSelector } from "../../state/reduxHooks";
-import { useModal } from "../../modals/useModal";
+import AddTrainingModal from "modals/TrainingModal";
+import AddExcModal from "modals/ExerciseModal";
+import { useAppSelector } from "state/reduxHooks";
+import { useModal } from "modals/useModal";
 
 const LogsPage = () => {
   const trainingLog = useAppSelector((state) => state.training);

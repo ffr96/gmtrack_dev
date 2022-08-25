@@ -1,6 +1,6 @@
 import React from "react";
-import AddTrainingForm from "../components/Forms/AddTraining";
-import { Modal } from "../components/Modal";
+import AddTrainingForm from "components/Forms/AddTraining";
+import { Modal } from "components/Modal";
 
 interface Props {
   isModalOpen: boolean;
