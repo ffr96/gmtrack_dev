@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
+    "types": ["cypress", "@testing-library/cypress"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -19,6 +20,7 @@
   },
   "include": [
     "src",
+    "cypress",
     "./postcss.config.js",
     "./tailwind.config.js",
     "./prettier.config.js",

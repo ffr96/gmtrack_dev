@@ -19,6 +19,7 @@ const LoginForm = () => {
     <form onSubmit={handleSubmit} className="flex flex-col items-end">
       <h3 className="mb-6 w-full text-center text-2xl">Login</h3>
       <Input
+        id="login-username"
         name="Username"
         value={username}
         required
@@ -26,6 +27,7 @@ const LoginForm = () => {
         placeholder="Username"
       />
       <Input
+        id="login-password"
         name="Password"
         value={password}
         placeholder="Password"
@@ -33,7 +35,7 @@ const LoginForm = () => {
         onChange={({ target }) => setPassword(target.value)}
         type="password"
       />
-      <Button type="submit" action="SEND">
+      <Button type="submit" action="SEND" id="login-submit">
         Send
       </Button>
     </form>

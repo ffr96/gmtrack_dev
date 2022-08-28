@@ -20,6 +20,7 @@ const RegisterForm = () => {
     <form onSubmit={handleSubmit} className="flex flex-col items-end">
       <h3 className="mb-6 w-full text-center text-2xl">Register</h3>
       <Input
+        id="register-username"
         name="Username"
         value={username}
         required
@@ -27,6 +28,7 @@ const RegisterForm = () => {
         placeholder="Username"
       />
       <Input
+        id="register-password"
         name="Password"
         value={password}
         placeholder="Password"
@@ -35,6 +37,7 @@ const RegisterForm = () => {
         type="password"
       />
       <Input
+        id="register-email"
         name="Email"
         value={email}
         placeholder="Email"
@@ -42,7 +45,7 @@ const RegisterForm = () => {
         onChange={({ target }) => setEmail(target.value)}
         type="email"
       />
-      <Button type="submit" action="SEND">
+      <Button type="submit" action="SEND" id="register-submit">
         Send
       </Button>
     </form>

@@ -3,7 +3,7 @@ import React from "react";
 const Button = ({
   action,
   ...props
-}: { action: "SEND" | "DELETE" } & React.ComponentProps<"button">) => {
+}: { action?: "SEND" | "DELETE" } & React.ComponentProps<"button">) => {
   return (
     <button
       {...props}

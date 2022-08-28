@@ -19,13 +19,13 @@ export type DataForChart = {
 };
 
 const DataChart = (data: DataForChart) => {
-  const mediaIsWide = getMediaWidth();
+  const isMediaWide = getMediaWidth();
   return (
-    <div>
+    <div id="datachart">
       <h2 className="font-workSans text-xl">{data.name}</h2>
       <LineChart
-        width={mediaIsWide ? 500 : 300}
-        height={mediaIsWide ? 400 : 200}
+        width={isMediaWide ? 500 : 300}
+        height={isMediaWide ? 400 : 200}
         data={data.data}
         margin={{ top: 10, left: 10, right: 10, bottom: 10 }}
       >
