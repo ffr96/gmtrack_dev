@@ -1,8 +1,0 @@
-(X) not done 
-(O) done
-
--implement active and inactive logs (able to edit active, unable to edit inactive logs) (X)
--add an notification component for error/sucess/etc (O)
--add notification for Add Exc. Modal (X)
--push new exercises to log after a new exercise is successfuly added to the DB (X)
--reset all options when changing exercise performed on exc form.- (X)
