@@ -10,6 +10,8 @@ const store = configureStore({
   preloadedState: {
     user: getLocalUser(),
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(serverAPI.middleware),
   reducer: {
     [serverAPI.reducerPath]: serverAPI.reducer,
     user: userReducer,

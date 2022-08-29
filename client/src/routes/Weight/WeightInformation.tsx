@@ -2,6 +2,7 @@ import { getDate } from "utils/functionUtils";
 import DisplayMeasurements from "components/DisplayMeasurements";
 import { useAppSelector } from "state/reduxHooks";
 import { useGetWeightQuery } from "state/services/serverAPI";
+import Spinner from "components/Spinner";
 
 /**
  * Displays the last X weight logs. Defaults to 5.
@@ -18,7 +19,8 @@ const WeightInformation = ({
   const user = useAppSelector((state) => state.user);
   const { data: weight, isLoading } = useGetWeightQuery(user?.id);
 
-  if (!weight || isLoading) return <div>loading..</div>;
+  if (isLoading) return <Spinner msg="Loading..." />;
+  if (!weight) return <div>No weight added yet! 😒</div>;
 
   return (
     <div className="w-fit">

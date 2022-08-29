@@ -4,10 +4,20 @@ import { selectRecentLogs } from "state/trainingReducer";
 import { getDate } from "utils/functionUtils";
 
 /**
- * Shows the last X logs of a given user (defaults to 5)
+ * @param logsToRender
+ * Shows the last X logs of a given user (defaults to 5).
+ * A value of 0 will cause it to show all the logs.
+ * @param filter
+ * Filters by date
  */
 
-const RecentTraining = ({ logsToRender = 5 }: { logsToRender?: number }) => {
+const RecentTraining = ({
+  logsToRender = 5,
+  filter,
+}: {
+  logsToRender?: number;
+  filter?: { from: Date; to: Date };
+}) => {
   const tlogs = useAppSelector((state) =>
     selectRecentLogs(state, logsToRender)
   );

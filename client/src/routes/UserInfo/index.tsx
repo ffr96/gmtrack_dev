@@ -13,7 +13,7 @@ import { useModal } from "modals/useModal";
 import { useAppSelector } from "../../state/reduxHooks";
 import { icons } from "../../utils/icons";
 import WeightInformation from "../Weight/WeightInformation";
-import RecentTraining from "./RecentTraining";
+import RecentTraining from "../LogsPage/RecentTraining";
 
 const UserInfo = () => {
   const [trainingModal, openTrainingModal, closeTrainingModal] = useModal();
@@ -35,7 +35,6 @@ const UserInfo = () => {
             <RecentTraining />
           </div>
           <div>
-            {" "}
             <h1 className="pb-5 text-2xl">Recent weight entries:</h1>
             <WeightInformation displayMeasures={false} />
           </div>

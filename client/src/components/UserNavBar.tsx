@@ -6,11 +6,7 @@ import { raiseNotification } from "state/notificationReducer";
 import { useAppDispatch } from "state/reduxHooks";
 import { removeUser } from "state/userReducer";
 
-interface AppType {
-  changeTheme?: () => void;
-}
-
-export const UserCommandBar = ({ changeTheme }: AppType) => {
+export const UserCommandBar = () => {
   const dispatch = useAppDispatch();
 
   const handleLogout = () => {
@@ -21,8 +17,14 @@ export const UserCommandBar = ({ changeTheme }: AppType) => {
 
   const items = [
     {
+      key: "home",
+      to: "/",
+      text: "Overview",
+      icon: icons.home,
+    },
+    {
       key: "traininglogs",
-      to: "",
+      to: "logs",
       text: "Training Logs",
       icon: icons.book,
     },

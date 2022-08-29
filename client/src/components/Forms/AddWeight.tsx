@@ -1,41 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../Button";
 import Input from "../Input/Input";
 import AddMeasures from "./AddMeasures";
-
-import { useAppDispatch, useAppSelector } from "state/reduxHooks";
-import { raiseNotification } from "state/notificationReducer";
-import { getDate } from "utils/functionUtils";
 import { useSubmitWeightMutation } from "state/services/serverAPI";
+
+import { useAppSelector } from "state/reduxHooks";
+import { getDate } from "utils/functionUtils";
 import { Measures } from "types";
+import { useDispatch } from "react-redux";
+import { raiseNotification } from "state/notificationReducer";
 
 const AddWeightForm = () => {
   const [comments, setComment] = useState("");
   const [weight, setWeight] = useState("");
   const [showMeasurements, setShowMeasurements] = useState(false);
   const [measures, setMeasures] = useState<Measures | undefined>();
-  const [submitWeight, weightState] = useSubmitWeightMutation();
+  const [submitWeight, { isError, isSuccess }] = useSubmitWeightMutation();
+  const dispatch = useDispatch();
 
   const user = useAppSelector((state) => state.user);
-  const dispatch = useAppDispatch();
   const date = getDate();
 
-  const handleSubmit = (e: React.FormEvent): void => {
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(
+        raiseNotification({
+          type: "SUCCESS",
+          message: "Success adding weight!",
+        })
+      );
+    }
+    if (isError) {
+      dispatch(
+        raiseNotification({
+          type: "ERROR",
+          message: "Error while adding weight",
+        })
+      );
+    }
+  }, [isSuccess, isError]);
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const trainingToSend = {
-      date: date,
       weight: Number(weight),
+      date: date,
       comments: comments,
-      measures: measures,
+      measures: showMeasurements ? measures : undefined,
     };
 
     if (user) {
       void submitWeight({ id: user.id, body: trainingToSend });
-      console.log(weightState.isSuccess);
-    } else {
-      dispatch(
-        raiseNotification({ type: "WARNING", message: "Unexpected error" })
-      );
     }
   };
 

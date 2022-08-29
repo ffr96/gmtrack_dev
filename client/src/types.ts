@@ -18,6 +18,7 @@ export type Weight = {
   weight: number;
   date: string;
   measures?: Measures;
+  comments?: string;
 };
 
 export interface Exercises {

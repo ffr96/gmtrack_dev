@@ -24,7 +24,7 @@ const submitExercises = async (
       dispatch(
         raiseNotification({
           type: "SUCCESS",
-          message: "Sucess adding exercise",
+          message: "Success adding exercise",
         })
       );
     }

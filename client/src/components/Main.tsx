@@ -1,8 +1,16 @@
-import { ReactNode } from "react";
+import clsx from "clsx";
+import React from "react";
 
-const Main = ({ children }: { children: ReactNode }) => {
+const Main = ({ ...props }: React.ComponentProps<"div">) => {
   return (
-    <div className="flex min-h-screen flex-col overflow-x-clip">{children}</div>
+    <div
+      className={clsx(
+        "flex min-h-screen flex-col overflow-x-clip",
+        props.className
+      )}
+    >
+      {props.children}
+    </div>
   );
 };
 

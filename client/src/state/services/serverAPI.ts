@@ -4,7 +4,7 @@ import { Options as Exercises, Weight } from "types";
 import { RootState } from "../store";
 
 export const serverAPI = createApi({
-  tagTypes: [],
+  tagTypes: ["Weight"],
   baseQuery: fetchBaseQuery({
     prepareHeaders: (headers, { getState }) => {
       const state = getState() as RootState;
@@ -21,6 +21,7 @@ export const serverAPI = createApi({
     }),
     getWeight: builder.query<Weight[], string | undefined>({
       query: (id) => ({ url: `users/${id}/weight` }),
+      providesTags: ["Weight"],
     }),
     submitWeight: builder.mutation<Weight, { id: string; body: Weight }>({
       query: ({ id, body }) => ({
@@ -28,6 +29,7 @@ export const serverAPI = createApi({
         method: "POST",
         body: body,
       }),
+      invalidatesTags: ["Weight"],
     }),
   }),
 });
