@@ -4,9 +4,15 @@ import {
   Exercises,
   Options as ExercisesOptions,
   TrainingLog,
+  User,
   Weight,
 } from "types";
 import { RootState } from "../store";
+
+export interface LoginRequest {
+  username: string;
+  password: string;
+}
 
 export const serverAPI = createApi({
   tagTypes: ["Weight", "Logs", "SingleLog"],
@@ -85,6 +91,13 @@ export const serverAPI = createApi({
       }),
       invalidatesTags: ["Logs"],
     }),
+    login: builder.mutation<User, LoginRequest>({
+      query: (credentials) => ({
+        url: `/login`,
+        method: "POST",
+        body: credentials,
+      }),
+    }),
   }),
 });
 
@@ -97,4 +110,5 @@ export const {
   useSubmitExerciseMutation,
   useSubmitLogsMutation,
   useDeleteLogMutation,
+  useLoginMutation,
 } = serverAPI;

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "types";
+import { serverAPI } from "./services/serverAPI";
 import { RootState } from "./store";
 
 type InitialUser = User | null;
@@ -17,6 +18,16 @@ const userReducer = createSlice({
       state = null;
       return state;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addMatcher(
+      serverAPI.endpoints.login.matchFulfilled,
+      (state, { payload }) => {
+        localStorage.setItem("user-token", JSON.stringify(payload));
+        console.log(payload);
+        return (state = payload);
+      }
+    );
   },
 });
 

@@ -1,18 +1,25 @@
-import { useAppDispatch } from "state/reduxHooks";
-import { submitLogin } from "async/submitLogin";
-
 import Input from "components/Input/Input";
 import Button from "components/Button";
 import { useInput } from "components/Input/useInput";
+import { useLoginMutation } from "state/services/serverAPI";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const [username, setUsername] = useInput();
   const [password, setPassword] = useInput();
-  const dispatch = useAppDispatch();
+  const [login, { isSuccess, isError }] = useLoginMutation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate("/");
+    }
+  }, [isSuccess]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    void submitLogin(username, password, dispatch);
+    void login({ username, password });
   };
 
   return (
