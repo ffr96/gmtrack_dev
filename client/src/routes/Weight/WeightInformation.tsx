@@ -6,7 +6,6 @@ import Spinner from "components/Spinner";
 
 /**
  * Displays the last X weight logs. Defaults to 5.
- * Similar to RecentTraining
  */
 
 const WeightInformation = ({
@@ -36,12 +35,12 @@ const WeightInformation = ({
                 {wht.weight}kg/lb
               </span>
             </div>
-            {wht.measures && displayMeasures && (
+            {(wht.measures && displayMeasures && (
               <div>
                 <b>Measurements</b>:
                 <DisplayMeasurements measures={wht.measures} />
               </div>
-            )}
+            )) || <div>No measurements for this date</div>}
           </div>
         );
       })}

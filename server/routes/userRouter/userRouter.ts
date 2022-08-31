@@ -42,7 +42,7 @@ router.post('/', async (req, res, next) => {
 });
 
 router.delete('/:id', async (req, res) => {
-  const user = await User.findByIdAndDelete(req.params.id);
+  await User.findByIdAndDelete(req.params.id);
   res.sendStatus(200);
 });
 

@@ -1,10 +1,7 @@
-import React from "react";
-import axios from "axios";
-import { setTrainingLog as initTraining } from "./state/trainingReducer";
-import { useAppDispatch, useAppSelector } from "./state/reduxHooks";
-import { TrainingLog } from "./types";
+import React, { useEffect } from "react";
 
-import { baseUrl } from "./utils/constants";
+import { useAppSelector } from "./state/reduxHooks";
+
 import { Routes, Route, useLocation } from "react-router-dom";
 import { UserCommandBar } from "./components/UserNavBar";
 
@@ -18,22 +15,9 @@ import ModalPage from "./routes/ModalPage";
 import Footer from "./components/Footer";
 
 export const App = () => {
-  const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
   const location = useLocation();
   const state = location.state as { backgroundLocation?: Location };
-  React.useEffect(() => {
-    const setTrainingLog = async () => {
-      if (user) {
-        const { data: trainingLog } = await axios.get<TrainingLog[]>(
-          `${baseUrl}/users/${user.id}/logs`,
-          { headers: { Authorization: `bearer ${user.token}` } }
-        );
-        dispatch(initTraining(trainingLog));
-      }
-    };
-    void setTrainingLog();
-  }, [user]);
 
   return (
     <div className="bg-slate-300">

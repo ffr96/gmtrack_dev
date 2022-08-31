@@ -28,6 +28,22 @@ router.get('/', (req: Request<{ userID: string }>, res) => {
 });
 
 /**
+ * Gets training logs by log id
+ */
+
+router.get(
+  '/:logsID',
+  (req: Request<{ userID: string; logsID: string }>, res) => {
+    void Training.findOne({ _id: req.params.logsID, user: req.params.userID })
+      .populate('exercises')
+      .then((trainingLog) => {
+        res.send(trainingLog);
+      })
+      .catch(() => res.status(404).end());
+  }
+);
+
+/**
  * Creates an empty log training on a given user id
  */
 

@@ -9,6 +9,7 @@ import { DisplayRoutine } from "components/DisplayRoutine";
 import Button from "components/Button";
 import { deleteLog } from "async/deleteLog";
 import { raiseNotification } from "state/notificationReducer";
+import { useGetLogByIdQuery } from "state/services/serverAPI";
 
 interface ExerciseModalProps {
   isModalOpen: boolean;
@@ -18,11 +19,14 @@ interface ExerciseModalProps {
 
 const ExerciseModal = ({ isModalOpen, onClose, logID }: ExerciseModalProps) => {
   const user = useAppSelector((state) => state.user);
-  const tl = useAppSelector((state) =>
-    state.training?.find((log) => log.id === logID)
-  );
+  let tl;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  if (user) {
+    const { data } = useGetLogByIdQuery({ userID: user.id, logID: logID });
+    tl = data;
+  }
 
   const handleDelete = () => {
     if (user) {
