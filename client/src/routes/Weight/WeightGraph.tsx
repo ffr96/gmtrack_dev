@@ -6,6 +6,10 @@ import { useGetWeightQuery } from "state/services/serverAPI";
 import { Measures } from "types";
 import { getDate } from "utils/functionUtils";
 
+/**
+ *
+ */
+
 const WeightGraph = () => {
   const user = useAppSelector((state) => state.user);
   const { data: weight, isLoading } = useGetWeightQuery(user?.id);
@@ -15,13 +19,15 @@ const WeightGraph = () => {
     extra: Measures | undefined;
   }> = [];
   if (weight) {
-    data = weight.map((wht) => {
-      return {
-        yvalue: wht.weight,
-        xvalue: getDate(wht.date),
-        extra: wht.measures,
-      };
-    });
+    data = weight
+      .map((wht) => {
+        return {
+          yvalue: wht.weight,
+          xvalue: getDate(wht.date),
+          extra: wht.measures,
+        };
+      })
+      .reverse();
   }
 
   if (isLoading) return <div>loading...</div>;

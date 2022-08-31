@@ -7,8 +7,10 @@ import { Exercises } from "types";
 import utils from "utils/functionUtils";
 import { useAppDispatch, useAppSelector } from "state/reduxHooks";
 import { raiseNotification } from "state/notificationReducer";
-import { submitExercises } from "async/submitExercises";
-import { useGetExercisesQuery } from "state/services/serverAPI";
+import {
+  useGetExercisesQuery,
+  useSubmitExerciseMutation,
+} from "state/services/serverAPI";
 
 const AddExerciseForm = ({ id }: { id: string }) => {
   const [name, setName] = useState("");
@@ -17,9 +19,29 @@ const AddExerciseForm = ({ id }: { id: string }) => {
   const [comment, setComment] = useState("");
   const [weight, setWeight] = useState(["", ""]);
   const { data: exercises, isLoading } = useGetExercisesQuery();
+  const [submitExercise, { isSuccess, isError }] = useSubmitExerciseMutation();
 
   const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
+
+  React.useEffect(() => {
+    if (isSuccess) {
+      dispatch(
+        raiseNotification({
+          type: "SUCCESS",
+          message: "Success adding exercise!",
+        })
+      );
+    }
+    if (isError) {
+      dispatch(
+        raiseNotification({
+          type: "ERROR",
+          message: "Error while adding exercise!",
+        })
+      );
+    }
+  }, [isSuccess, isError]);
 
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
@@ -31,11 +53,7 @@ const AddExerciseForm = ({ id }: { id: string }) => {
       comments: comment,
     };
     if (user) {
-      void submitExercises(trainingToSend, id, user, dispatch);
-    } else {
-      dispatch(
-        raiseNotification({ type: "WARNING", message: "Can't get user info" })
-      );
+      void submitExercise({ userId: user.id, id: id, body: trainingToSend });
     }
   };
 

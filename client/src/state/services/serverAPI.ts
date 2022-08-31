@@ -9,7 +9,7 @@ import {
 import { RootState } from "../store";
 
 export const serverAPI = createApi({
-  tagTypes: ["Weight", "Logs"],
+  tagTypes: ["Weight", "Logs", "SingleLog"],
   baseQuery: fetchBaseQuery({
     prepareHeaders: (headers, { getState }) => {
       const state = getState() as RootState;
@@ -27,6 +27,9 @@ export const serverAPI = createApi({
     getWeight: builder.query<Weight[], string | undefined>({
       query: (id) => ({ url: `users/${id}/weight` }),
       providesTags: ["Weight"],
+      transformResponse: (response: Weight[]) => {
+        return response.reverse();
+      },
     }),
     submitWeight: builder.mutation<Weight, { id: string; body: Weight }>({
       query: ({ id, body }) => ({
@@ -48,10 +51,11 @@ export const serverAPI = createApi({
       transformResponse: (response: TrainingLog) => {
         return response;
       },
+      providesTags: ["SingleLog"],
     }),
     submitLogs: builder.mutation<
       TrainingLog,
-      { id: string; body: TrainingLog }
+      { id: string; body: Omit<TrainingLog, "id"> }
     >({
       query: ({ id, body }) => ({
         url: `users/${id}/logs`,
@@ -69,6 +73,16 @@ export const serverAPI = createApi({
         body: body,
         method: "POST",
       }),
+      invalidatesTags: ["Logs", "SingleLog"],
+    }),
+    deleteLog: builder.mutation<
+      void,
+      { id: string | undefined; userId: string }
+    >({
+      query: ({ id, userId }) => ({
+        url: `users/${userId}/logs/${id}`,
+        method: "DELETE",
+      }),
       invalidatesTags: ["Logs"],
     }),
   }),
@@ -80,5 +94,7 @@ export const {
   useSubmitWeightMutation,
   useGetLogsQuery,
   useGetLogByIdQuery,
+  useSubmitExerciseMutation,
   useSubmitLogsMutation,
+  useDeleteLogMutation,
 } = serverAPI;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "../Button";
 import Input from "../Input/Input";
-import AddMeasures from "./AddMeasures";
+import AddMeasures from "./MeasuresExpandedForm";
 import { useSubmitWeightMutation } from "state/services/serverAPI";
 
 import { useAppSelector } from "state/reduxHooks";

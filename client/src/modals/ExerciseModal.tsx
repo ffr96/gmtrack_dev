@@ -7,9 +7,12 @@ import { Modal } from "components/Modal";
 import { DisplayRoutine } from "components/DisplayRoutine";
 
 import Button from "components/Button";
-import { deleteLog } from "async/deleteLog";
 import { raiseNotification } from "state/notificationReducer";
-import { useGetLogByIdQuery } from "state/services/serverAPI";
+import {
+  useDeleteLogMutation,
+  useGetLogByIdQuery,
+} from "state/services/serverAPI";
+import Spinner from "components/Spinner";
 
 interface ExerciseModalProps {
   isModalOpen: boolean;
@@ -22,22 +25,39 @@ const ExerciseModal = ({ isModalOpen, onClose, logID }: ExerciseModalProps) => {
   let tl;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [deleteLog, { isSuccess, isError }] = useDeleteLogMutation();
 
   if (user) {
-    const { data } = useGetLogByIdQuery({ userID: user.id, logID: logID });
+    const { data, isLoading } = useGetLogByIdQuery({
+      userID: user.id,
+      logID: logID,
+    });
     tl = data;
   }
 
-  const handleDelete = () => {
-    if (user) {
-      void deleteLog(user, dispatch, navigate, logID);
-    } else {
+  React.useEffect(() => {
+    if (isSuccess) {
       dispatch(
         raiseNotification({
-          type: "WARNING",
-          message: "Unexpected error",
+          type: "SUCCESS",
+          message: "Success removing log!",
         })
       );
+      navigate(-1);
+    }
+    if (isError) {
+      dispatch(
+        raiseNotification({
+          type: "ERROR",
+          message: "Error while removing log!",
+        })
+      );
+    }
+  }, [isSuccess, isError]);
+
+  const handleDelete = () => {
+    if (user) {
+      void deleteLog({ userId: user.id, id: logID });
     }
   };
 
