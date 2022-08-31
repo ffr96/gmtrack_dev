@@ -4,7 +4,8 @@ App for logging everything related to your training; you can log your exercises,
 **Client side** built with **React, RR, Redux, Tailwind** (and a few more libraries).  
 **Server side** built with **Expressjs, Mongoose** (and a few more libraries).
 
-App is available at [GM Track](https://gmtrack2.herokuapp.com/), deployed version will be a little outdated when compared to dev version.  
+App is available at [GM Track](https://gmtrack2.herokuapp.com/) and can be tested using **test123** as username and password.  
+Deployed version will be a little outdated when compared to dev version.  
 If heroku's server is dormant, it will take a few seconds to boot up.
 
 Client can be run by installing the dependencies then  
