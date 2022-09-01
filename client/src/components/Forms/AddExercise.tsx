@@ -84,6 +84,7 @@ const AddExerciseForm = ({ id }: { id: string }) => {
       <div>
         <div>
           <SingleSelect
+            id="select-exercise-name"
             name="Exercise selector"
             options={exercises}
             onChange={(e) => setName(handleTag(e))}

@@ -58,6 +58,7 @@ const AddTrainingForm = () => {
     <form onSubmit={handleSubmit}>
       <div className="flex flex-col">
         <Input
+          id="add-training-name"
           name="Name"
           placeholder="Name this training"
           value={name}
@@ -66,6 +67,7 @@ const AddTrainingForm = () => {
 
         <Input name="Date" disabled={true} value={date} />
         <Input
+          id="add-training-comment"
           name="Comment"
           placeholder="Comments about this day"
           value={comments}
@@ -73,12 +75,13 @@ const AddTrainingForm = () => {
         />
 
         <MultiSelect
+          id="add-training-muscles"
           name="training log select"
           options={muscleGroup}
           onChange={(e) => setTags(handleGroupTags(e))}
         />
         <div className="text-center">
-          <Button type="submit" action="SEND">
+          <Button type="submit" action="SEND" id="submit-training">
             Create new training log
           </Button>
         </div>

@@ -59,12 +59,14 @@ const AddWeightForm = () => {
       <div className="flex flex-col">
         <Input name="Date" disabled={true} value={date} />
         <Input
+          id="add-weight-comment"
           name="Comment"
           placeholder="Comments about this day"
           value={comments}
           onChange={({ target }) => setComment(target.value)}
         />
         <Input
+          id="add-weight-value"
           name="Weight"
           type="number"
           required
@@ -75,6 +77,7 @@ const AddWeightForm = () => {
         <span>
           Add measurements?{" "}
           <input
+            id="measurements-checkbox"
             type="checkbox"
             onClick={() => setShowMeasurements(!showMeasurements)}
           />
@@ -87,7 +90,7 @@ const AddWeightForm = () => {
         )}
 
         <div className="text-center">
-          <Button type="submit" action="SEND">
+          <Button type="submit" action="SEND" id="submit-weight">
             Create new weight log
           </Button>
         </div>

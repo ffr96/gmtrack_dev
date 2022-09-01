@@ -5,7 +5,7 @@ const Main = ({ ...props }: React.ComponentProps<"div">) => {
   return (
     <div
       className={clsx(
-        "flex min-h-screen flex-col overflow-x-clip",
+        "flex min-h-screen flex-col overflow-x-scroll",
         props.className
       )}
     >

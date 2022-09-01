@@ -64,17 +64,20 @@ interface MultiSProps {
   name: string;
   onChange: (e: MultiValue<Options>) => void;
   options?: Array<Options>;
+  id?: string;
 }
 
 interface SingleSProps {
   name: string;
   onChange: (e: SingleValue<Options>) => void;
   options?: Array<Options>;
+  id?: string;
 }
 
-const MultiSelect = ({ name, onChange, options }: MultiSProps) => {
+const MultiSelect = ({ name, onChange, options, id }: MultiSProps) => {
   return (
     <Select
+      id={id}
       options={options}
       isMulti
       name={name}
@@ -87,9 +90,10 @@ const MultiSelect = ({ name, onChange, options }: MultiSProps) => {
   );
 };
 
-const SingleSelect = ({ name, onChange, options }: SingleSProps) => {
+const SingleSelect = ({ name, onChange, options, id }: SingleSProps) => {
   return (
     <Select
+      id={id}
       options={options}
       styles={singleStyle}
       name={name}

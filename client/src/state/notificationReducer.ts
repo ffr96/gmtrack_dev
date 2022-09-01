@@ -1,13 +1,14 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { serverAPI } from "./services/serverAPI";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type NotificationReceived = 'ERROR' | 'SUCCESS' | 'WARNING';
+type NotificationReceived = "ERROR" | "SUCCESS" | "WARNING";
 type NotificationType = {
   message: string;
   type: NotificationReceived;
 } | null;
 
 const notificationReducer = createSlice({
-  name: 'notification',
+  name: "notification",
   initialState: null as NotificationType,
   reducers: {
     raiseNotification: (
@@ -24,6 +25,14 @@ const notificationReducer = createSlice({
       state = null;
       return state;
     },
+  },
+  extraReducers: (build) => {
+    build.addMatcher(serverAPI.endpoints.login.matchFulfilled, (state, {}) => {
+      return (state = {
+        message: "Successfuly logged in",
+        type: "SUCCESS",
+      });
+    });
   },
 });
 

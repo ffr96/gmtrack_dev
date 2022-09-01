@@ -24,7 +24,6 @@ const userReducer = createSlice({
       serverAPI.endpoints.login.matchFulfilled,
       (state, { payload }) => {
         localStorage.setItem("user-token", JSON.stringify(payload));
-        console.log(payload);
         return (state = payload);
       }
     );

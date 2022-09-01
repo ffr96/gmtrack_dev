@@ -37,4 +37,24 @@ describe("When already logged in", () => {
     cy.contains("Add new training");
     cy.contains("Add new weight");
   });
+
+  it("Creates a new training entry", () => {
+    cy.contains("Add new training").click();
+    cy.wait(100);
+    cy.get("#add-training-muscles").click().findByText("Chest").click();
+    cy.get("#submit-training").click();
+    cy.wait(500);
+    cy.findByText("Success", { exact: false });
+  });
+
+  it("Creates a new weight entry", () => {
+    cy.contains("Add new weight").click();
+    cy.wait(100);
+    cy.get("#add-weight-comment").click().type("Just testing").click();
+    cy.get("#add-weight-value").click().type("70");
+    cy.get("#measurements-checkbox").click();
+    cy.findByText("Create new", { exact: false }).click();
+    cy.wait(500);
+    cy.findByText("Success", { exact: false });
+  });
 });
