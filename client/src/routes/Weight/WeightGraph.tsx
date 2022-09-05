@@ -19,15 +19,13 @@ const WeightGraph = () => {
     extra: Measures | undefined;
   }> = [];
   if (weight) {
-    data = weight
-      .map((wht) => {
-        return {
-          yvalue: wht.weight,
-          xvalue: getDate(wht.date),
-          extra: wht.measures,
-        };
-      })
-      .reverse();
+    data = weight.slice(-10).map((wht) => {
+      return {
+        yvalue: wht.weight,
+        xvalue: getDate(wht.date),
+        extra: wht.measures,
+      };
+    });
   }
 
   if (isLoading) return <div>loading...</div>;

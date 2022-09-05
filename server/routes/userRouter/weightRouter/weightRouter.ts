@@ -9,7 +9,6 @@ const router = express.Router({ mergeParams: true });
  */
 
 router.get('/', async (req: Request<{ userID: string }>, res) => {
-  console.log(req.params.userID);
   const user = await User.findById(req.params.userID).populate('weight');
   if (user) {
     return res.send(user.weight);

@@ -2,26 +2,11 @@ import Input from "components/Input/Input";
 import Button from "components/Button";
 import { useInput } from "components/Input/useInput";
 import { useLoginMutation } from "state/services/serverAPI";
-import { useEffect } from "react";
-import { useAppDispatch } from "state/reduxHooks";
-import { raiseNotification } from "state/notificationReducer";
 
 const LoginForm = () => {
   const [username, setUsername] = useInput();
   const [password, setPassword] = useInput();
-  const [login, { isError }] = useLoginMutation();
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (isError) {
-      dispatch(
-        raiseNotification({
-          message: "Invalid username or password",
-          type: "ERROR",
-        })
-      );
-    }
-  }, [isError]);
+  const [login] = useLoginMutation();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

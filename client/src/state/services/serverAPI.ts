@@ -34,7 +34,7 @@ export const serverAPI = createApi({
       query: (id) => ({ url: `users/${id}/weight` }),
       providesTags: ["Weight"],
       transformResponse: (response: Weight[]) => {
-        return response.reverse();
+        return response;
       },
     }),
     submitWeight: builder.mutation<Weight, { id: string; body: Weight }>({

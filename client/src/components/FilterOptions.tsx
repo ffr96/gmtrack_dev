@@ -20,7 +20,7 @@ const FilterOptions = ({
   const [beginDate, setBeginDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   return (
-    <div className="flex flex-col items-center rounded-lg bg-slate-300 px-4 pb-6">
+    <div className="flex flex-col items-center rounded-lg bg-slate-300 px-4 pb-6 shadow-lg">
       <Input
         autoComplete="off"
         id="filterName"

@@ -14,7 +14,7 @@ export type DataForChart = {
   data: Array<{
     xvalue: string | number;
     yvalue: string | number;
-    extra?: any;
+    extra?: Record<string, string | number | undefined>;
   }>;
 };
 

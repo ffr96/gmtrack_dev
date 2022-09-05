@@ -3,12 +3,7 @@ import React from "react";
 
 const Main = ({ ...props }: React.ComponentProps<"div">) => {
   return (
-    <div
-      className={clsx(
-        "flex min-h-screen flex-col overflow-x-scroll",
-        props.className
-      )}
-    >
+    <div className={clsx("flex min-h-screen flex-col", props.className)}>
       {props.children}
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "../Button";
 import Input from "../Input/Input";
 import AddMeasures from "./MeasuresExpandedForm";
@@ -7,38 +7,16 @@ import { useSubmitWeightMutation } from "state/services/serverAPI";
 import { useAppSelector } from "state/reduxHooks";
 import { getDate } from "utils/functionUtils";
 import { Measures } from "types";
-import { useDispatch } from "react-redux";
-import { raiseNotification } from "state/notificationReducer";
 
 const AddWeightForm = () => {
   const [comments, setComment] = useState("");
   const [weight, setWeight] = useState("");
   const [showMeasurements, setShowMeasurements] = useState(false);
   const [measures, setMeasures] = useState<Measures | undefined>();
-  const [submitWeight, { isError, isSuccess }] = useSubmitWeightMutation();
-  const dispatch = useDispatch();
+  const [submitWeight] = useSubmitWeightMutation();
 
   const user = useAppSelector((state) => state.user);
   const date = getDate();
-
-  useEffect(() => {
-    if (isSuccess) {
-      dispatch(
-        raiseNotification({
-          type: "SUCCESS",
-          message: "Success adding weight!",
-        })
-      );
-    }
-    if (isError) {
-      dispatch(
-        raiseNotification({
-          type: "ERROR",
-          message: "Error while adding weight",
-        })
-      );
-    }
-  }, [isSuccess, isError]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

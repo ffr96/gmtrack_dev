@@ -4,8 +4,7 @@ import Input from "../Input/Input";
 import { MultiSelect } from "../OptionSelector";
 import { handleGroupTags } from "../OptionSelector";
 
-import { useAppDispatch, useAppSelector } from "state/reduxHooks";
-import { raiseNotification } from "state/notificationReducer";
+import { useAppSelector } from "state/reduxHooks";
 import { muscleGroup } from "utils/trainingDB";
 import { getDate } from "utils/functionUtils";
 import { useSubmitLogsMutation } from "state/services/serverAPI";
@@ -15,29 +14,9 @@ const AddTrainingForm = () => {
   const [comments, setComment] = useState("");
   const [tags, setTags] = useState<string[]>([]);
   const date = getDate();
-  const [submitTraining, { isSuccess, isError }] = useSubmitLogsMutation();
+  const [submitTraining] = useSubmitLogsMutation();
 
   const user = useAppSelector((state) => state.user);
-  const dispatch = useAppDispatch();
-
-  React.useEffect(() => {
-    if (isSuccess) {
-      dispatch(
-        raiseNotification({
-          type: "SUCCESS",
-          message: "Success adding training!",
-        })
-      );
-    }
-    if (isError) {
-      dispatch(
-        raiseNotification({
-          type: "ERROR",
-          message: "Error while adding training",
-        })
-      );
-    }
-  }, [isSuccess, isError]);
 
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();

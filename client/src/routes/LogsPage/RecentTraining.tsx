@@ -60,29 +60,27 @@ const RecentTraining = ({
   return (
     <div>
       {tlogs &&
-        tlogs
-          .map((tl) => {
-            return (
-              <div className="mb-6 w-fit hover:text-slate-600" key={tl.id}>
-                <Link
-                  to={`../logs/${tl.id}`}
-                  state={{ backgroundLocation: location }}
-                >
-                  <div>
-                    <b>Training on day</b>: {getDate(tl.date)}{" "}
-                  </div>
-                  <div>
-                    <b>Comments </b> about the day: {tl.comments}{" "}
-                  </div>
-                  <div>
-                    <b>Routine </b> performed:{" "}
-                    {tl.tags && tl.tags.toLocaleString()}
-                  </div>
-                </Link>
-              </div>
-            );
-          })
-          .slice(-logsToRender)}
+        tlogs.slice(-logsToRender).map((tl) => {
+          return (
+            <div className="mb-6 w-fit hover:text-slate-600" key={tl.id}>
+              <Link
+                to={`../logs/${tl.id}`}
+                state={{ backgroundLocation: location }}
+              >
+                <div>
+                  <b>Training on day</b>: {getDate(tl.date)}{" "}
+                </div>
+                <div>
+                  <b>Comments </b> about the day: {tl.comments}{" "}
+                </div>
+                <div>
+                  <b>Routine </b> performed:{" "}
+                  {tl.tags && tl.tags.toLocaleString()}
+                </div>
+              </Link>
+            </div>
+          );
+        })}
     </div>
   );
 };

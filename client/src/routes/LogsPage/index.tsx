@@ -23,7 +23,7 @@ const LogsPage = () => {
         <h1 className="p-6 text-center text-3xl">
           Training <b>Logs</b>
         </h1>
-        <div className="bg-slate-200 p-12">
+        <div className="bg-slate-200 p-12 shadow-md">
           <div className="flex flex-col items-center justify-center">
             <h1 className="p-1 text-2xl">Filter by:</h1>
             <FilterOptions

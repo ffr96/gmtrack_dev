@@ -5,8 +5,7 @@ import { handleTag, SingleSelect } from "../OptionSelector";
 
 import { Exercises } from "types";
 import utils from "utils/functionUtils";
-import { useAppDispatch, useAppSelector } from "state/reduxHooks";
-import { raiseNotification } from "state/notificationReducer";
+import { useAppSelector } from "state/reduxHooks";
 import {
   useGetExercisesQuery,
   useSubmitExerciseMutation,
@@ -19,29 +18,9 @@ const AddExerciseForm = ({ id }: { id: string }) => {
   const [comment, setComment] = useState("");
   const [weight, setWeight] = useState(["", ""]);
   const { data: exercises, isLoading } = useGetExercisesQuery();
-  const [submitExercise, { isSuccess, isError }] = useSubmitExerciseMutation();
+  const [submitExercise] = useSubmitExerciseMutation();
 
   const user = useAppSelector((state) => state.user);
-  const dispatch = useAppDispatch();
-
-  React.useEffect(() => {
-    if (isSuccess) {
-      dispatch(
-        raiseNotification({
-          type: "SUCCESS",
-          message: "Success adding exercise!",
-        })
-      );
-    }
-    if (isError) {
-      dispatch(
-        raiseNotification({
-          type: "ERROR",
-          message: "Error while adding exercise!",
-        })
-      );
-    }
-  }, [isSuccess, isError]);
 
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();

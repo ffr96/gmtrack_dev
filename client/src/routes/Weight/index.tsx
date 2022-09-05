@@ -10,7 +10,7 @@ const WeightPage = () => {
           Weight <b>Logs</b>
         </h1>
       </div>
-      <div className="mb-2 flex bg-slate-200 p-6 shadow-md md:flex-row md:justify-around">
+      <div className="mb-2 flex flex-col bg-slate-200 p-6 shadow-md md:flex-row md:justify-around">
         <WeightGraph />
         <WeightInformation weightsToRender={0} />
       </div>

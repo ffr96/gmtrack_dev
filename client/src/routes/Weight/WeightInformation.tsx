@@ -23,27 +23,31 @@ const WeightInformation = ({
 
   return (
     <div className="w-fit">
-      {weight.slice(-weightsToRender).map((wht) => {
-        return (
-          <div
-            key={wht.date.toString()}
-            className="mb-6 rounded-lg bg-slate-400/70 p-2"
-          >
-            <div>
-              <b>Reported weight</b> on {getDate(wht.date)}:{" "}
-              <span className="font-bold text-violet-800">
-                {wht.weight}kg/lb
-              </span>
-            </div>
-            {(wht.measures && displayMeasures && (
+      {weight
+        .slice(-weightsToRender)
+        .reverse()
+        .map((wht) => {
+          return (
+            <div
+              key={wht.date.toString()}
+              className="mb-6 rounded-lg bg-slate-400/70 p-2"
+            >
               <div>
-                <b>Measurements</b>:
-                <DisplayMeasurements measures={wht.measures} />
+                <b>Reported weight</b> on {getDate(wht.date)}:{" "}
+                <span className="font-bold text-violet-800">
+                  {wht.weight}kg/lb
+                </span>
               </div>
-            )) || <div>No measurements for this date</div>}
-          </div>
-        );
-      })}
+              {displayMeasures &&
+                ((wht.measures && (
+                  <div>
+                    <b>Measurements</b>:
+                    <DisplayMeasurements measures={wht.measures} />
+                  </div>
+                )) || <div>No measurements for this date</div>)}
+            </div>
+          );
+        })}
     </div>
   );
 };
