@@ -1,11 +1,12 @@
-import { NextFunction, Request, Response } from 'express';
+import { ExpressRequest } from '../types/express';
+import { NextFunction, Response } from 'express';
 
 /**
  * Makes sure both request id and token id are from the same user.
  */
 
 export const sameUser = (
-  req: Request<{ userID: string }>,
+  req: ExpressRequest & { params: { userID: string } },
   res: Response,
   next: NextFunction
 ) => {

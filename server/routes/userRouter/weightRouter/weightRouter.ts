@@ -1,9 +1,11 @@
 import express, { Request } from 'express';
 import config from '../../../config/config';
+import { sameUser } from '../../../mdw/sameUser';
 import User from '../../../schemas/users';
 import Weight from '../../../schemas/weight';
 
 const router = express.Router({ mergeParams: true });
+router.use(sameUser);
 
 /**
  * Get all the weight data of a user.
@@ -24,7 +26,6 @@ router.get('/', async (req: Request<{ userID: string }>, res) => {
     filter['date'] = date;
   }
 
-  console.log(filter);
   const weight = await Weight.find(filter)
     .populate('weight')
     .sort({ date: -1 })
