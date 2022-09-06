@@ -1,6 +1,6 @@
 import { User, ErrorResponse } from "types";
 
-const stringToInt = (arr: string[]): number[] => {
+export const arrayStringToInt = (arr: string[]): number[] => {
   const arrNumber: number[] = [];
   if (arr) {
     arr.forEach((i) => arrNumber.push(Number(i)));
@@ -84,4 +84,14 @@ export const getMediaWidth = () => {
   return width > 600;
 };
 
-export default { stringToInt };
+export const buildUrlQuery = (
+  page?: number,
+  filter?: { name?: string; from?: string; to?: string }
+) => {
+  let query = "";
+  if (typeof page === "number") query += `page=${page}&`;
+  if (filter?.name) query += `name=${filter.name}&`;
+  if (filter?.to) query += `to=${filter.to}&`;
+  if (filter?.from) query += `from=${filter.from}&`;
+  return query;
+};

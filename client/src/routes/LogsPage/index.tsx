@@ -6,12 +6,14 @@ import { InteractButton } from "components/InteractButton";
 import Main from "components/Main";
 import RecentTraining from "routes/LogsPage/RecentTraining";
 import FilterOptions from "components/FilterOptions";
+import PageNavigation from "components/PageNavigation";
 
 const LogsPage = () => {
   const [trainingModal, openTrainingModal, closeTrainingModal] = useModal();
-  const [name, setName] = useState<string>("");
-  const [from, setFrom] = useState<string | undefined>();
-  const [to, setTo] = useState<string | undefined>();
+  const [page, setPage] = useState(0);
+  const [filter, setFilter] = useState<
+    { name?: string; to?: string; from?: string } | undefined
+  >();
 
   return (
     <Main>
@@ -26,16 +28,10 @@ const LogsPage = () => {
         <div className="bg-slate-200 p-12 shadow-md">
           <div className="flex flex-col items-center justify-center">
             <h1 className="p-1 text-2xl">Filter by:</h1>
-            <FilterOptions
-              name={name}
-              from={from}
-              to={to}
-              setName={setName}
-              setFrom={setFrom}
-              setTo={setTo}
-            />
+            <FilterOptions filter={filter} setFilter={setFilter} />
+            <PageNavigation currentPage={page} changePage={setPage} />
           </div>
-          <RecentTraining logsToRender={0} filter={{ name, from, to }} />
+          <RecentTraining filter={filter} page={page} />
         </div>
       </div>
       <InteractButton onClick={openTrainingModal}>Add new log</InteractButton>

@@ -5,14 +5,6 @@ import { useGetLogsQuery } from "state/services/serverAPI";
 import { TrainingLog } from "types";
 import { getDate } from "utils/functionUtils";
 
-/**
- * @param logsToRender
- * Shows the last X logs of a given user (defaults to 5).
- * A value of 0 will cause it to show all the logs.
- * @param filter
- * Filters by date
- */
-
 export type filter = {
   from?: string;
   to?: string;
@@ -40,16 +32,27 @@ const filterLogs = (logs: TrainingLog[], filter: filter) => {
   return filteredLogs;
 };
 
+/**
+ * Shows the logs of a given user on descending order. If page is specified, it will return a max of 5 logs
+ * and skip page*5 logs.
+ * @param filter name, from, to
+ *
+ * @param page number
+ */
+
 const RecentTraining = ({
-  logsToRender = 5,
   filter,
+  page,
 }: {
-  logsToRender?: number;
   filter?: filter;
+  page?: number;
 }) => {
   const user = useAppSelector((state) => state.user);
-  let { data: tlogs } = useGetLogsQuery(user?.id);
-  const { isLoading } = useGetLogsQuery(user?.id);
+  // eslint-disable-next-line prefer-const
+  let { data: tlogs, isLoading } = useGetLogsQuery({
+    id: user?.id,
+    page: filter ? undefined : page,
+  });
   const location = useLocation();
 
   if (isLoading) return <Spinner msg="Loading" />;
@@ -60,7 +63,7 @@ const RecentTraining = ({
   return (
     <div>
       {tlogs &&
-        tlogs.slice(-logsToRender).map((tl) => {
+        tlogs.map((tl) => {
           return (
             <div className="mb-6 w-fit hover:text-slate-600" key={tl.id}>
               <Link

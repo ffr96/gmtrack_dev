@@ -4,6 +4,11 @@ import config from '../config/config';
 import { Response, NextFunction } from 'express';
 import { ExpressRequest } from '../types/express';
 
+/**
+ * Get Token out of each request made to the server. If there's no token (or it isn't valid)
+ * protected requests won't be performed.
+ */
+
 const isJwt = (token: JwtPayload | string): token is JwtPayload => {
   if (typeof token !== 'string') {
     if (token.id !== null && token.username !== null) return true;

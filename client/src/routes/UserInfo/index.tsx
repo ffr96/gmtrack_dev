@@ -32,11 +32,11 @@ const UserInfo = () => {
         <div className="flex flex-col md:flex-row md:justify-between">
           <div>
             <h1 className="pb-5 text-2xl">Recent training entries:</h1>
-            <RecentTraining />
+            <RecentTraining page={0} />
           </div>
           <div>
             <h1 className="pb-5 text-2xl">Recent weight entries:</h1>
-            <WeightInformation displayMeasures={false} />
+            <WeightInformation displayMeasures={false} page={0} />
           </div>
         </div>
       </div>

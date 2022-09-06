@@ -12,20 +12,23 @@ import { getDate } from "utils/functionUtils";
 
 const WeightGraph = () => {
   const user = useAppSelector((state) => state.user);
-  const { data: weight, isLoading } = useGetWeightQuery(user?.id);
+  const { data: weight, isLoading } = useGetWeightQuery({ id: user?.id });
   let data: Array<{
     xvalue: string | number;
     yvalue: string | number;
     extra: Measures | undefined;
   }> = [];
   if (weight) {
-    data = weight.slice(-10).map((wht) => {
-      return {
-        yvalue: wht.weight,
-        xvalue: getDate(wht.date),
-        extra: wht.measures,
-      };
-    });
+    data = weight
+      .slice(-10)
+      .map((wht) => {
+        return {
+          yvalue: wht.weight,
+          xvalue: getDate(wht.date),
+          extra: wht.measures,
+        };
+      })
+      .reverse();
   }
 
   if (isLoading) return <div>loading...</div>;

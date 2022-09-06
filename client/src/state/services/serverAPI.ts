@@ -8,11 +8,18 @@ import {
   Weight,
 } from "types";
 import { RootState } from "../store";
+import { buildUrlQuery } from "utils/functionUtils";
 
 export interface LoginRequest {
   username: string;
   password: string;
 }
+
+type filterOptions = {
+  name?: string;
+  from?: string;
+  to?: string;
+};
 
 export const serverAPI = createApi({
   tagTypes: ["Weight", "Logs", "SingleLog"],
@@ -30,8 +37,13 @@ export const serverAPI = createApi({
     getExercises: builder.query<ExercisesOptions[], void>({
       query: () => "exercises",
     }),
-    getWeight: builder.query<Weight[], string | undefined>({
-      query: (id) => ({ url: `users/${id}/weight` }),
+    getWeight: builder.query<
+      Weight[],
+      { id?: string; page?: number; filter?: filterOptions }
+    >({
+      query: ({ id, page, filter }) => ({
+        url: `users/${id}/weight?${buildUrlQuery(page, filter)}`,
+      }),
       providesTags: ["Weight"],
       transformResponse: (response: Weight[]) => {
         return response;
@@ -45,11 +57,16 @@ export const serverAPI = createApi({
       }),
       invalidatesTags: ["Weight"],
     }),
-    getLogs: builder.query<TrainingLog[], string | undefined>({
-      query: (id) => ({ url: `users/${id}/logs` }),
+    getLogs: builder.query<
+      TrainingLog[],
+      { id: string | undefined; page?: number }
+    >({
+      query: ({ id, page }) => ({
+        url: `users/${id}/logs?${page === undefined ? "" : `page=${page}`}`,
+      }),
       providesTags: ["Logs"],
       transformResponse: (response: TrainingLog[]) => {
-        return response.reverse();
+        return response;
       },
     }),
     getLogById: builder.query<TrainingLog, { logID: string; userID: string }>({

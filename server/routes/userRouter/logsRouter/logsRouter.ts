@@ -2,13 +2,17 @@ import { Router, Request, NextFunction } from 'express';
 import Training from '../../../schemas/training';
 import Exercises from '../../../schemas/exercises';
 import User from '../../../schemas/users';
+import config from '../../../config/config';
 import {
   parseString,
   parseStringArray,
   parseNumberArray,
   parseNumber,
 } from '../../../utils/parsers';
+import { sameUser } from '../../../mdw/sameUser';
 const router = Router({ mergeParams: true });
+
+router.use(sameUser);
 
 /**
  * Gets training logs of user by id
@@ -17,6 +21,9 @@ const router = Router({ mergeParams: true });
 router.get('/', (req: Request<{ userID: string }>, res) => {
   void Training.find({ user: req.params.userID })
     .populate('exercises')
+    .sort({ date: -1 })
+    .skip(Number(req.query.page) * config.perPage)
+    .limit(req.query.page ? config.perPage : 0)
     .then((trainingLog) => {
       if (trainingLog) {
         res.send(trainingLog);

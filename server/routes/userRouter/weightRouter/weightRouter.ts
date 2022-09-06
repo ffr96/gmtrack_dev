@@ -1,4 +1,5 @@
 import express, { Request } from 'express';
+import config from '../../../config/config';
 import User from '../../../schemas/users';
 import Weight from '../../../schemas/weight';
 
@@ -9,9 +10,28 @@ const router = express.Router({ mergeParams: true });
  */
 
 router.get('/', async (req: Request<{ userID: string }>, res) => {
-  const user = await User.findById(req.params.userID).populate('weight');
-  if (user) {
-    return res.send(user.weight);
+  let date;
+  const filter: Record<string, Record<string, Date> | string> = {
+    user: req.params.userID,
+  };
+  if (req.query.from) {
+    date = { $gt: new Date(req.query.from as string) };
+  }
+  if (req.query.to) {
+    date = { ...date, $lt: new Date(req.query.to as string) };
+  }
+  if (date) {
+    filter['date'] = date;
+  }
+
+  console.log(filter);
+  const weight = await Weight.find(filter)
+    .populate('weight')
+    .sort({ date: -1 })
+    .skip(Number(req.query.page) * config.perPage)
+    .limit(req.query.page ? config.perPage : 0);
+  if (weight) {
+    return res.send(weight);
   } else {
     return res.status(404).json({ message: 'User not found' });
   }
@@ -26,11 +46,11 @@ router.post('/', async (req: Request<{ userID: string }>, res, next) => {
   const user = await User.findById(req.params.userID);
   if (user) {
     try {
-      const weight = new Weight(req.body);
+      const weight = new Weight({ ...req.body, user: req.params.userID });
       const response = await weight.save();
       user.weight.push(response.id);
       await user.save();
-      return res.json(req.body);
+      return res.json(weight);
     } catch (e) {
       console.log(e);
       return next(e);

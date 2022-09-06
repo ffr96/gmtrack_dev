@@ -4,7 +4,7 @@ import Button from "../Button";
 import { handleTag, SingleSelect } from "../OptionSelector";
 
 import { Exercises } from "types";
-import utils from "utils/functionUtils";
+import { arrayStringToInt } from "utils/functionUtils";
 import { useAppSelector } from "state/reduxHooks";
 import {
   useGetExercisesQuery,
@@ -27,8 +27,8 @@ const AddExerciseForm = ({ id }: { id: string }) => {
     const trainingToSend: Exercises = {
       name: name,
       sets: Number(sets),
-      reps: utils.stringToInt(reps),
-      weight: utils.stringToInt(weight),
+      reps: arrayStringToInt(reps),
+      weight: arrayStringToInt(weight),
       comments: comment,
     };
     if (user) {
