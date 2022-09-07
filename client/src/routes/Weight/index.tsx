@@ -19,7 +19,7 @@ const WeightPage = () => {
       </div>
       <div className="flex flex-col items-center bg-slate-200 p-6 shadow-md">
         <PageNavigation currentPage={page} changePage={setPage} />
-        <FilterOptions filter={filter} setFilter={setFilter} />
+        <FilterOptions filter={filter} setFilter={setFilter} showName={false} />
         <div className="mb-2 flex w-full flex-col pt-5 md:flex-row md:justify-around">
           <WeightGraph />
           <WeightInformation page={page} filter={filter} />

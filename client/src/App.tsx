@@ -1,5 +1,3 @@
-import React, { useEffect } from "react";
-
 import { useAppSelector } from "./state/reduxHooks";
 
 import { Routes, Route, useLocation } from "react-router-dom";

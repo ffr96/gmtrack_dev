@@ -1,14 +1,28 @@
 import Input from "./Input/Input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDebouncedValue } from "@mantine/hooks";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Button from "./Button";
 
+/**
+ *  Filter component expecting an object of the type filter and a SetState to perform operations on it the object.
+ *
+ *  @param filter Expects an object with (all optional) name, to, from
+ *  @param setFilter a React SetState to edit filter
+ *  @param showName whether to show name input or not (defaults to true)
+ *
+ *
+ *  Name ``input`` is debounced (300ms)
+ */
+
 const FilterOptions = ({
   filter,
   setFilter,
+  showName = true,
 }: {
+  showName?: boolean;
   filter?: {
     name?: string;
     to?: string;
@@ -27,17 +41,26 @@ const FilterOptions = ({
 }) => {
   const [beginDate, setBeginDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [name, setName] = useState<string>("");
+  const [debouncedValue] = useDebouncedValue(name, 400);
+
+  useEffect(() => {
+    if (name) setFilter({ ...filter, name: debouncedValue });
+  }, [debouncedValue]);
+
   return (
     <div
-      className={`relative flex flex-col items-center rounded-lg bg-slate-300 px-4 pb-6 shadow-lg`}
+      className={`relative flex flex-col items-center rounded-lg bg-slate-300 p-4 pb-6 shadow-lg`}
     >
-      <Input
-        autoComplete="off"
-        id="filterName"
-        value={filter?.name ?? ""}
-        placeholder={"Name"}
-        onChange={(e) => setFilter({ ...filter, name: e.target.value })}
-      />
+      {showName && (
+        <Input
+          autoComplete="off"
+          id="filterName"
+          value={name}
+          placeholder={"Name"}
+          onChange={(e) => setName(e.target.value)}
+        />
+      )}
       <div className="flex flex-col md:flex-row">
         <span className="pr-2">From:</span>
         <DatePicker

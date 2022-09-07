@@ -13,7 +13,7 @@ router.use(sameUser);
 
 router.get('/', async (req: Request<{ userID: string }>, res) => {
   let date;
-  const filter: Record<string, Record<string, Date> | string> = {
+  const filter: Record<string, Record<string, Date | string> | string> = {
     user: req.params.userID,
   };
   if (req.query.from) {

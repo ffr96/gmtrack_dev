@@ -1,18 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "state/reduxHooks";
+import { useAppSelector } from "state/reduxHooks";
 
 import AddExerciseForm from "components/Forms/AddExercise";
 import { Modal } from "components/Modal";
 import { DisplayRoutine } from "components/DisplayRoutine";
 
 import Button from "components/Button";
-import { raiseNotification } from "state/notificationReducer";
 import {
   useDeleteLogMutation,
   useGetLogByIdQuery,
 } from "state/services/serverAPI";
-import Spinner from "components/Spinner";
 
 interface ExerciseModalProps {
   isModalOpen: boolean;
@@ -23,12 +21,11 @@ interface ExerciseModalProps {
 const ExerciseModal = ({ isModalOpen, onClose, logID }: ExerciseModalProps) => {
   const user = useAppSelector((state) => state.user);
   let tl;
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [deleteLog, { isSuccess, isError }] = useDeleteLogMutation();
+  const [deleteLog, { isSuccess }] = useDeleteLogMutation();
 
   if (user) {
-    const { data, isLoading } = useGetLogByIdQuery({
+    const { data } = useGetLogByIdQuery({
       userID: user.id,
       logID: logID,
     });
@@ -37,23 +34,9 @@ const ExerciseModal = ({ isModalOpen, onClose, logID }: ExerciseModalProps) => {
 
   React.useEffect(() => {
     if (isSuccess) {
-      dispatch(
-        raiseNotification({
-          type: "SUCCESS",
-          message: "Success removing log!",
-        })
-      );
       navigate(-1);
     }
-    if (isError) {
-      dispatch(
-        raiseNotification({
-          type: "ERROR",
-          message: "Error while removing log!",
-        })
-      );
-    }
-  }, [isSuccess, isError]);
+  }, [isSuccess]);
 
   const handleDelete = () => {
     if (user) {
