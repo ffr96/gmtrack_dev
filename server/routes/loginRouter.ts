@@ -14,52 +14,57 @@ interface UserReceived {
   id: string;
 }
 
-router.post('/', (req, res) => {
-  const fetchUser = async () => {
-    const user = await User.findOne({
-      username: parseString(req.body.username),
+/**
+ * Perform a login
+ */
+
+router.post('/', async (req, res) => {
+  let usertoReturn;
+  const user = await User.findOne({
+    username: parseString(req.body.username),
+  });
+
+  if (user) {
+    const parsedUser: UserReceived = parseLogin({
+      username: user.username,
+      passwordHash: user.passwordHash,
+      id: user.id,
     });
-    let usertoReturn;
-    if (user) {
-      const parsedUser: UserReceived = parseLogin({
-        username: user.username,
-        passwordHash: user.passwordHash,
-        id: user.id,
-      });
-      const passwordIsCorrect = await bcrypt.compare(
-        parseString(req.body.password),
-        parsedUser.passwordHash
-      );
 
-      if (!passwordIsCorrect) {
-        throw new Error('Invalid username or password');
-      }
+    /**
+     * Compare password provided by request to password stored on the db
+     */
 
-      const userForToken = {
-        username: parsedUser.username,
-        id: parsedUser.id,
-      };
+    const passwordIsCorrect = await bcrypt.compare(
+      parseString(req.body.password),
+      parsedUser.passwordHash
+    );
 
-      const SECRET = parseString(config.SECRET);
-      const token = jwt.sign(userForToken, SECRET);
-      usertoReturn = {
-        token: token,
-        username: parsedUser.username,
-        id: parsedUser.id,
-      };
-    } else {
-      throw new Error('Invalid username or password');
+    if (!passwordIsCorrect) {
+      return res.status(404).json({ message: 'Invalid username or password' });
     }
-    return usertoReturn;
-  };
 
-  void fetchUser()
-    .then((user) => {
-      return res.send(user);
-    })
-    .catch((error) => {
-      return res.status(400).json({ message: error.message as string });
-    });
+    /**
+     *  Password are the same (ie. username/password provided is correct)
+     *  so a token is created and returned to the user
+     */
+
+    const userForToken = {
+      username: parsedUser.username,
+      id: parsedUser.id,
+    };
+
+    const SECRET = parseString(config.SECRET);
+    const token = jwt.sign(userForToken, SECRET);
+    usertoReturn = {
+      token: token,
+      username: parsedUser.username,
+      id: parsedUser.id,
+    };
+    return res.send(usertoReturn);
+  } else {
+    return res.status(404).json({ message: 'Invalid username or password' });
+  }
 });
 
 export default router;

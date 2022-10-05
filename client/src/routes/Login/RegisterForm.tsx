@@ -1,7 +1,7 @@
 import { useAppDispatch } from "state/reduxHooks";
 
 import Input from "components/Input/Input";
-import Button from "components/Button";
+import Button from "components/Elements/Button";
 import { useInput } from "components/Input/useInput";
 import { submitRegister } from "async/submitRegister";
 

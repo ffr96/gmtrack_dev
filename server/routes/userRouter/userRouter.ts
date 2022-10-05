@@ -1,11 +1,12 @@
 import express from 'express';
-import User from '../../schemas/users';
+import User from '@/schemas/users';
 import bcrypt from 'bcrypt';
 import logsRouter from './logsRouter/logsRouter';
 import weightRouter from './weightRouter/weightRouter';
 
-import { parseString } from '../../utils/parsers';
-import { validSession } from '../../mdw/validSession';
+import { parseString } from '@/utils/parsers';
+import { validSession } from '@/mdw/validSession';
+import { validId } from '@/mdw/validId';
 
 const router = express.Router();
 
@@ -13,7 +14,7 @@ const router = express.Router();
  * Gets user by id
  */
 
-router.get('/:id', validSession, async (req, res) => {
+router.get('/:id', validId, async (req, res) => {
   const user = await User.findById(req.params.id);
   if (user) return res.json(user);
   return res.sendStatus(404);
@@ -41,7 +42,11 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+/**
+ * Delete a user by id
+ */
+
+router.delete('/:id', validId, async (req, res) => {
   await User.findByIdAndDelete(req.params.id);
   res.sendStatus(200);
 });

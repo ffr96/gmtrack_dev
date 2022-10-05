@@ -1,10 +1,16 @@
 import express, { Request } from 'express';
-import config from '../../../config/config';
-import { sameUser } from '../../../mdw/sameUser';
-import User from '../../../schemas/users';
-import Weight from '../../../schemas/weight';
+import config from '@/config/config';
+import { sameUser } from '@/mdw/sameUser';
+import User from '@/schemas/users';
+import Weight from '@/schemas/weight';
 
 const router = express.Router({ mergeParams: true });
+
+/**
+ *  Make sure authorized requests are performed only on the
+ *  user that holds the token
+ */
+
 router.use(sameUser);
 
 /**

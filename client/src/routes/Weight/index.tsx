@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Main from "components/Main";
+import Main from "components/Layout/Main";
 import PageNavigation from "components/PageNavigation";
 import WeightGraph from "./WeightGraph";
 import WeightInformation from "./WeightInformation";

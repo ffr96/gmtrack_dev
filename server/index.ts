@@ -1,11 +1,17 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
+
+// Routers
 import userRouter from './routes/userRouter/userRouter';
 import exercisesRouter from './routes/exercisesRouter';
 import loginRouter from './routes/loginRouter';
+
+// Utils
 import config from './config/config';
 import { parseString } from './utils/parsers';
+
+// Middleware
 import { tokenExtractor } from './mdw/extractToken';
 import { logger } from './mdw/logger';
 import { errorhnd } from './mdw/errorhnd';

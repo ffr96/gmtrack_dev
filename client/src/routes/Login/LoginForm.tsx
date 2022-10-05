@@ -1,5 +1,5 @@
 import Input from "components/Input/Input";
-import Button from "components/Button";
+import Button from "components/Elements/Button";
 import { useInput } from "components/Input/useInput";
 import { useLoginMutation } from "state/services/serverAPI";
 

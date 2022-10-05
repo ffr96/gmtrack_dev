@@ -89,7 +89,7 @@ export const serverAPI = createApi({
     }),
     submitExercise: builder.mutation<
       Exercises,
-      { userId: string; id: string; body: Exercises }
+      { userId: string; id: string; body: Omit<Exercises, "id"> }
     >({
       query: ({ id, userId, body }) => ({
         url: `users/${userId}/logs/${id}`,

@@ -27,6 +27,7 @@ export interface Exercises {
   sets: number;
   weight: number[];
   comments?: string;
+  id: string;
 }
 
 export interface TrainingLog {

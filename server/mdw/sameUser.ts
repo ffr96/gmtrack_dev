@@ -10,6 +10,6 @@ export const sameUser = (
   res: Response,
   next: NextFunction
 ) => {
-  if (req.user.id === req.params.userID) return next();
+  if (req.user?.id === req.params.userID) return next();
   return next({ message: 'unauthorized' });
 };

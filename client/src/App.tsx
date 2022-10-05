@@ -1,7 +1,7 @@
 import { useAppSelector } from "./state/reduxHooks";
 
 import { Routes, Route, useLocation } from "react-router-dom";
-import { UserCommandBar } from "./components/UserNavBar";
+import { UserNavBar } from "./components/Layout/UserNavBar";
 
 import LogsPage from "./routes/LogsPage";
 import WeightPage from "./routes/Weight";
@@ -10,7 +10,7 @@ import UserInfo from "./routes/UserInfo";
 import LoginPage from "./routes/Login";
 import Notification from "./components/Notification";
 import ModalPage from "./routes/ModalPage";
-import Footer from "./components/Footer";
+import Footer from "./components/Layout/Footer";
 
 export const App = () => {
   const user = useAppSelector((state) => state.user);
@@ -22,7 +22,7 @@ export const App = () => {
       <Notification />
       {(user && (
         <div>
-          <UserCommandBar />
+          <UserNavBar />
           <Routes location={state?.backgroundLocation || location}>
             <Route path="/" element={<UserInfo />}></Route>
             <Route path="logs" element={<LogsPage />} />

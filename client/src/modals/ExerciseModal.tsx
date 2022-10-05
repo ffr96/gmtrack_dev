@@ -6,7 +6,7 @@ import AddExerciseForm from "components/Forms/AddExercise";
 import { Modal } from "components/Modal";
 import { DisplayRoutine } from "components/DisplayRoutine";
 
-import Button from "components/Button";
+import Button from "components/Elements/Button";
 import {
   useDeleteLogMutation,
   useGetLogByIdQuery,

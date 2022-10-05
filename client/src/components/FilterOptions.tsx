@@ -4,7 +4,7 @@ import { useDebouncedValue } from "@mantine/hooks";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Button from "./Button";
+import Button from "./Elements/Button";
 
 /**
  *  Filter component expecting an object of the type filter and a SetState to perform operations on it the object.

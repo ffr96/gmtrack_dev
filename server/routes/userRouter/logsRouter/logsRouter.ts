@@ -1,16 +1,23 @@
 import { Router, Request, NextFunction } from 'express';
-import Training from '../../../schemas/training';
-import Exercises from '../../../schemas/exercises';
-import User from '../../../schemas/users';
-import config from '../../../config/config';
+import Training from '@/schemas/training';
+import Exercises from '@/schemas/exercises';
+import User from '@/schemas/users';
+import config from '@/config/config';
 import {
   parseString,
   parseStringArray,
   parseNumberArray,
   parseNumber,
-} from '../../../utils/parsers';
-import { sameUser } from '../../../mdw/sameUser';
+} from '@/utils/parsers';
+import { sameUser } from '@/mdw/sameUser';
+import { validId } from '@/mdw/validId';
+
 const router = Router({ mergeParams: true });
+
+/**
+ *  Make sure authorized requests are performed only on the
+ *  user that holds the token
+ */
 
 router.use(sameUser);
 
@@ -18,20 +25,18 @@ router.use(sameUser);
  * Gets training logs of user by id
  */
 
-router.get('/', (req: Request<{ userID: string }>, res) => {
-  void Training.find({ user: req.params.userID })
+router.get('/', async (req: Request<{ userID: string }>, res) => {
+  const trainingLog = await Training.find({ user: req.params.userID })
     .populate('exercises')
     .sort({ date: -1 })
     .skip(Number(req.query.page) * config.perPage)
-    .limit(req.query.page ? config.perPage : 0)
-    .then((trainingLog) => {
-      if (trainingLog) {
-        res.send(trainingLog);
-      } else {
-        res.status(404).json({ message: 'Training not found' });
-      }
-    })
-    .catch(() => res.status(400).end());
+    .limit(req.query.page ? config.perPage : 0);
+
+  if (trainingLog) {
+    return res.send(trainingLog);
+  } else {
+    return res.sendStatus(404);
+  }
 });
 
 /**
@@ -39,14 +44,18 @@ router.get('/', (req: Request<{ userID: string }>, res) => {
  */
 
 router.get(
-  '/:logsID',
-  (req: Request<{ userID: string; logsID: string }>, res) => {
-    void Training.findOne({ _id: req.params.logsID, user: req.params.userID })
-      .populate('exercises')
-      .then((trainingLog) => {
-        res.send(trainingLog);
-      })
-      .catch(() => res.status(404).end());
+  '/:id',
+  validId,
+  async (req: Request<{ userID: string; id: string }>, res) => {
+    const trainingLog = await Training.findOne({
+      _id: req.params.id,
+      user: req.params.userID,
+    }).populate('exercises');
+    if (trainingLog) {
+      return res.send(trainingLog);
+    } else {
+      return res.sendStatus(404);
+    }
   }
 );
 
@@ -56,32 +65,30 @@ router.get(
 
 router.post(
   '/',
-  (req: Request<{ userID: string }>, res, next: NextFunction) => {
-    void User.findById(req.params.userID)
-      .then((user) => {
-        if (!user) throw new Error();
-        const comment = req.body.comments
-          ? parseString(req.body.comments)
-          : undefined;
-        const name = req.body.name
-          ? parseString(req.body.name)
-          : 'Unnamed training';
-        if (!req.body.tags || !req.body.date)
-          return next({ message: 'invalid' });
+  async (req: Request<{ userID: string }>, res, next: NextFunction) => {
+    const user = await User.findById(req.params.userID);
+    if (user) {
+      const comment = req.body.comments
+        ? parseString(req.body.comments)
+        : undefined;
+      const name = req.body.name
+        ? parseString(req.body.name)
+        : 'Unnamed training';
+      if (!req.body.tags || !req.body.date) return next({ message: 'invalid' });
 
-        const log = new Training({
-          user: req.params.userID,
-          name: name,
-          date: parseString(req.body.date),
-          tags: parseStringArray(req.body.tags),
-          comments: comment,
-        });
+      const log = new Training({
+        user: req.params.userID,
+        name: name,
+        date: parseString(req.body.date),
+        tags: parseStringArray(req.body.tags),
+        comments: comment,
+      });
 
-        void log.save().then((log) => {
-          res.send(log);
-        });
-      })
-      .catch(() => res.sendStatus(500));
+      const savedLog = await log.save();
+      res.send(savedLog);
+    } else {
+      return res.sendStatus(500);
+    }
   }
 );
 

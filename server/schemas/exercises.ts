@@ -1,11 +1,12 @@
 import mongoose from 'mongoose';
+import { parseString } from '@/utils/parsers';
 
 export interface IExercises {
-  name: string,
-  reps: number[],
-  sets: number,
-  weight: number[],
-  comments?: string,
+  name: string;
+  reps: number[];
+  sets: number;
+  weight: number[];
+  comments?: string;
 }
 
 const exercisesSchema = new mongoose.Schema({
@@ -13,23 +14,26 @@ const exercisesSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  reps: [{
-    type: Number,
-    required: true,
-  }],
+  reps: [
+    {
+      type: Number,
+      required: true,
+    },
+  ],
   sets: {
     type: Number,
     required: true,
   },
   weight: [Number],
-  comments: String
+  comments: String,
 });
 
 exercisesSchema.set('toJSON', {
-  transform: (document,transformedObject) => {
-   delete transformedObject.__v;
-   delete transformedObject._id;
-  }
+  transform: (document, returnedObject) => {
+    returnedObject.id = parseString(returnedObject._id);
+    delete returnedObject.__v;
+    delete returnedObject._id;
+  },
 });
 
 const Exercises = mongoose.model<IExercises>('Exercises', exercisesSchema);

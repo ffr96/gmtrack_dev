@@ -1,4 +1,4 @@
-import Spinner from "components/Spinner";
+import Spinner from "components/Elements/Spinner";
 import { Link, useLocation } from "react-router-dom";
 import { useAppSelector } from "state/reduxHooks";
 import { useGetLogsQuery } from "state/services/serverAPI";

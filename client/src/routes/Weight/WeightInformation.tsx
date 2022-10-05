@@ -2,7 +2,7 @@ import { getDate } from "utils/functionUtils";
 import DisplayMeasurements from "components/DisplayMeasurements";
 import { useAppSelector } from "state/reduxHooks";
 import { useGetWeightQuery } from "state/services/serverAPI";
-import Spinner from "components/Spinner";
+import Spinner from "components/Elements/Spinner";
 
 /**
  * Displays the last weight logs in descending order.
@@ -31,8 +31,6 @@ const WeightInformation = ({
     page: filter ? undefined : page,
     filter: filter,
   });
-
-  console.log(filter);
 
   if (isLoading) return <Spinner msg="Loading..." />;
   if (!weight) return <div>No weight added yet! 😒</div>;

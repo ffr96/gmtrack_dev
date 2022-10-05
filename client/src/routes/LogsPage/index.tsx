@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import { useModal } from "modals/useModal";
 import { InteractButton } from "components/InteractButton";
-import Main from "components/Main";
+import Main from "components/Layout/Main";
 import RecentTraining from "routes/LogsPage/RecentTraining";
 import FilterOptions from "components/FilterOptions";
 import PageNavigation from "components/PageNavigation";

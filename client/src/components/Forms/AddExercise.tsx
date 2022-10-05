@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Input from "../Input/Input";
-import Button from "../Button";
+import Button from "../Elements/Button";
 import { handleTag, SingleSelect } from "../OptionSelector";
 
 import { Exercises } from "types";
@@ -24,7 +24,7 @@ const AddExerciseForm = ({ id }: { id: string }) => {
 
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    const trainingToSend: Exercises = {
+    const trainingToSend: Omit<Exercises, "id"> = {
       name: name,
       sets: Number(sets),
       reps: arrayStringToInt(reps),

@@ -18,13 +18,12 @@ const displayExercises = (elem: Exercises) => {
 
 /**
  * Receives a training log and returns a jsx element describing routine performed
- * - CONSIDER CHANGING THE KEY VALUE OF EXERCISES, SINCE AN EXERCISE MIGHT BE PERFORMED
- * MORE THAN ONCE DURING A ROUTINE, I.E AT THE BEGINNING AND AT THE END.
  * @param TrainingLog
  */
 
 export const DisplayRoutine = ({ tl }: { tl: TrainingLog }): JSX.Element => {
   const date = new Date(tl.date);
+  console.log(tl);
   return (
     <div className="font-workSans">
       <h1 className="text-center text-xl first-letter:font-bold">{tl.name}:</h1>
@@ -37,22 +36,23 @@ export const DisplayRoutine = ({ tl }: { tl: TrainingLog }): JSX.Element => {
           </p>
         )}
       </div>
-      {tl.exercises.map((log) => {
+      {tl.exercises.map((exercise) => {
         return (
           <div
-            key={log.name}
-            className={"mb-6 transition-transform hover:scale-110"}
+            key={exercise.id}
+            id={`exercise-${exercise.id}`}
+            className={"relative mb-6 transition-transform hover:scale-110"}
           >
             <div>
-              <b>Exercise:</b> {log.name} for: {displayExercises(log)}
+              <b>Exercise:</b> {exercise.name} for: {displayExercises(exercise)}
             </div>
             <div className="text-center">
-              {log.comments && (
+              {exercise.comments && (
                 <p>
                   <span className="italic text-slate-500">
                     Comment about the exercise:
                   </span>{" "}
-                  {log.comments}
+                  {exercise.comments}
                 </p>
               )}
             </div>

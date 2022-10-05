@@ -4,6 +4,7 @@ import { Request, Response, NextFunction } from 'express';
  * Logger for incoming/outgoing requests.
  * According to Express Documentation console.log() is not ideal for a production
  * enviroment.
+ *
  * TODO: Update logger with async logging.
  */
 

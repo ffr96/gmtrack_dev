@@ -1,12 +1,12 @@
 import React from "react";
-import { icons } from "../utils/icons";
+import { icons } from "utils/icons";
 
 import { Link } from "react-router-dom";
 import { raiseNotification } from "state/notificationReducer";
 import { useAppDispatch } from "state/reduxHooks";
 import { removeUser } from "state/userReducer";
 
-export const UserCommandBar = () => {
+export const UserNavBar = () => {
   const dispatch = useAppDispatch();
 
   const handleLogout = () => {

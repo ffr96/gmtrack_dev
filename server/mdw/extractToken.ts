@@ -1,5 +1,4 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import User from '../schemas/users';
 import config from '../config/config';
 import { Response, NextFunction } from 'express';
 import { ExpressRequest } from '../types/express';
@@ -16,7 +15,7 @@ const isJwt = (token: JwtPayload | string): token is JwtPayload => {
   return false;
 };
 
-export const tokenExtractor = async (
+export const tokenExtractor = (
   request: ExpressRequest,
   _response: Response,
   next: NextFunction
@@ -28,7 +27,9 @@ export const tokenExtractor = async (
       if (config.SECRET) {
         const decodedToken = jwt.verify(request.token, config.SECRET);
         if (isJwt(decodedToken)) {
-          request.user = await User.findById(decodedToken.id);
+          const { username, id } = decodedToken;
+          request.user = { username: username as string, id: id as string };
+          console.log(request.user);
         } else {
           request.user = null;
         }
